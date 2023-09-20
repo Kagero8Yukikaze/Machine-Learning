@@ -1,4 +1,4 @@
-# Lecture 1
+# Lecture 1 - Linear Regression
 
 ## Model Selection
 
@@ -48,6 +48,18 @@ $$
   - $\bar{f}(x) = E_D(f(x;D))$ is an average model over infinitely sample small D
   - $\hat{f}(x) = f(x;D,|D|\rightarrow \infin)$ is a model trained over an infinitely large D
   - 虽然上述推导使用了第一个函数，但在实际过程中数据自然越多越好，那么也就是第二个模型往往表现更好
+  - example:
+$$
+P(D) = \left\{
+\begin{aligned}
+1/3 & & \{(-1,1),(0,0)\} \\
+1/3 & & \{(1,1),(0,0)\} \\
+1/3 & & \{(-1,1),(1,1)\}
+\end{aligned}
+\right.
+$$
+    - $\bar{f}(x) = 1/3$, $variance > 0$, $bias^2 = 1$
+    - $\hat{f}(x) = 2/3$, $variance = 0$, $bias^2 = 2/3$
 
 ## Linear Regression
 
@@ -153,7 +165,7 @@ $$
     - 那么这个方程有唯一解 $\hat{w} = (x^T x)^{-1} x^T y$
     - 但依然有一个问题，就是$\lambda_{d+1}$可能很接近0，也就是$x^Tx$很接近一个非奇异矩阵，这就导致$ \lambda_{d+1}^{-1} $会相当大，因此会导致计算上的问题(**numerical issues and instability**)
 
-### Introduce L2 Regularization
+### L2 Regularization
 
 - Linear Regression with L2 Regularization (Ridge Regression):
 $$
@@ -184,3 +196,23 @@ so $x^T x + \lambda I$ is always non-singular and $\hat{w}$ is a unique solution
 $$
     \hat{w} = (x^T x + \lambda I)^{-1} x^T y
 $$
+
+### L1 Regularization
+
+- Linear Regression with L1 Regularization (Lasso Regression):
+$$
+    min L(\hat{w}) + \lambda ||\hat{w}||_1 \\
+    = min L(\hat{w}) + \lambda \sum_{i=1}^{d+1}|\hat{w_i}|
+$$
+  - induce sparsity of $\hat{w}$ (many dimensions of $\hat{w}$ will be 0)
+  - Lasso stands for _Least Absolute Shrinkage and Selection Operator_
+    - feature selection: 当参数很多时，用L1正则化可以筛选出真正有用的参数
+
+### Geometric view of Linear Regression
+
+- Ideally, we want $X\hat{W}=y$
+- 但是显然我们没办法找到一个model可以fit任何数据
+- Consider the column space of $X$, $col(X)$,  spanned by columns of $X$
+  - $X\hat{W}$ lies in $col(X)$, but $y$ may not
+  - let $X\hat{W} = \hat{y}$, this $\hat{W}$ is the least square solution to $X\hat{W}=y$
+  - Because $\hat{y}$ minimizes $||y-X\hat{W}||^2$, which is the object of Linear Regression, $\hat{y}(X\hat{W})$ should satisfy $y-\hat{y} \perp col(X) \leftrightarrow X^T(y-\hat{y}) = 0 \leftrightarrow X^TX\hat{W} = X^Ty $
