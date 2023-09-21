@@ -1,0 +1,95 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage{ctex} % 使用ctex宏包支持中文
+\usepackage{geometry} % 页面设置
+\usepackage{amsmath, amssymb} % 数学公式
+\usepackage{graphicx} % 插入图片
+\usepackage{enumitem} % 列表环境
+\usepackage{hyperref} % 超链接
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 标题信息
+\title{课后练习1}
+\author{-}
+
+\begin{document}
+
+\maketitle % 显示标题
+
+\section{问题一}
+
+\subsection{}
+
+令$x = \begin{bmatrix}
+    0 & 1 & 1 \\
+    2 & 2 & 1 \\
+    3 & 4 & 1
+\end{bmatrix}$, $y = \begin{bmatrix}
+    1 \\ 3 \\ 4
+\end{bmatrix}$, $\hat{w} = \begin{bmatrix}
+    w_1 \\ w_2 \\ b
+\end{bmatrix}$, 可以计算$x^T x = \begin{bmatrix}
+    13 & 16 & 5\\
+    16 & 21 & 7 \\
+    5 & 7 & 3
+\end{bmatrix}$
+
+
+那么$\hat{w} = (x^T x)^{-1}x^T y = \begin{bmatrix}
+    1 \\
+    0 \\
+    1
+\end{bmatrix}$, 故$w_1 = 1, \ w_2 = 0, \ b = 1$
+
+\subsection{}
+
+此时$x = \begin{bmatrix}
+    0&1&2&1\\
+    2&2&4&1\\
+    3&4&8&1
+\end{bmatrix}$, $\hat{w} = \begin{bmatrix}
+    w_1\\w_2\\w_3\\b
+\end{bmatrix}$, 计算$x^Tx = \begin{bmatrix}
+    13&16&32&5\\
+    16&21&42&7\\
+    32&42&84&14\\
+    5&7&14&3
+\end{bmatrix}$, 可以发现这是一个奇异矩阵(有重复的行), 没有逆矩阵, 因此此时线性回归没有唯一解
+
+\subsection{}
+
+已知$\lambda = 1$, 故$x^Tx + \lambda I = \begin{bmatrix}
+    14&16&32&5\\
+    16&22&42&7\\
+    32&42&85&14\\
+    5&7&14&4
+\end{bmatrix}$
+
+那么$\hat{w} = (x^T x + \lambda I)^{-1}x^T y = \begin{bmatrix}
+    0.378\\
+    0.140\\
+    0.280\\
+    0.304
+\end{bmatrix}$, 因此可得$w_1=0.378, \ w_2=0.140, \ w_3 = 0.280, \ b = 0.304$
+
+\section{问题二}
+
+这里是问题二的描述。
+
+\subsection{解答}
+
+这里是问题二的解答。
+
+\section{问题三}
+
+这里是问题三的描述。
+
+\subsection{解答}
+
+这里是问题三的解答。
+
+\section{问题四}
+
+\end{document}
