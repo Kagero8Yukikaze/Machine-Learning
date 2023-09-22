@@ -93,7 +93,7 @@ $$
 w \in \mathbb{R}^d \\
 \frac{\partial w^Tw}{\partial w} = 2 w \\[3mm]
 \frac{\partial w^Tx}{\partial x} = w \\[3mm]
-\frac{\partial xA^Tx}{\partial x} = (A + A^T)x
+\frac{\partial x^TAx}{\partial x} = (A + A^T)x
 $$
 
 ### Least Squares
