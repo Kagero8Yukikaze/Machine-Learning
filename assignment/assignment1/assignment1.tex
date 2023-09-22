@@ -2,7 +2,7 @@
 
 \usepackage{ctex} % 使用ctex宏包支持中文
 \usepackage{geometry} % 页面设置
-\usepackage{amsmath, amssymb} % 数学公式
+\usepackage{amsmath, amssymb, ntheorem} % 数学公式
 \usepackage{graphicx} % 插入图片
 \usepackage{enumitem} % 列表环境
 \usepackage{hyperref} % 超链接
@@ -13,6 +13,7 @@
 % 标题信息
 \title{课后练习1}
 \author{-}
+\date{}
 
 \begin{document}
 
@@ -122,14 +123,37 @@ $R = \begin{bmatrix}
 
 \subsection{}
 
-
+\begin{equation*}
+    Cross-Entropy \ Loss = - \sum_{i=1}^n (y_i log(\hat{t_i})
+     + (1-y_i) log (1- \hat{t_i}))
+\end{equation*}
 
 \subsection{}
 
-
+对于$x_i$来说, 它的似然函数是$L_i(\theta) = t_i^{y_i} 
++ (1-t_i)^{1-y_i}$, 其中$t_i$是一个0到1之间的实数, 表示$y_i=1$的概率, 
+我们依然希望这个似然函数尽量大, 使得模型能够更好地预测$y_i$, 因此我们要
+取log再取负, 得到我们可以优化的损失函数
 
 \section{问题四}
 
+
 \subsection{}
+
+\newtheorem*{proof}{Proof}
+
+\begin{proof}
+    假设对于任意一个超平面$w^T x + b = 0$, 存在最大的$k$使得$f(x) = (kw)^T x + kb$是一个最大似然解, 
+    那么对于损失函数$L_k = - \sum_{i=1}^n(y_i log(\sigma(z))+(1-y_i)(1-log(\sigma(z))))$, 其中$z = (kw)^T x + kb$, 
+    一定有$|\sigma((kw)^T x + kb)| < |\sigma(((k+1)w)^T x + (k+1)b)|$, 此时显然有$L_{k+1}<L_k$, 这说明$k+1$
+    相比$k$是一个更好地选择, 说明假设不成立, 不存在一个最大的k使得损失函数达到最小值, 因此有$k \rightarrow \infty$时, 
+    $||kw|| \rightarrow \infty$, $f(x)$都是一个最大似然解
+\end{proof}
+
+\subsection{}
+
+L2正则化相当于对参数施加了一个惩罚, 使得参数不能过分地大, 否则就会导致损失函数变大. 
+模型相当于会学习一个交叉熵和正则化之间的“平衡值”, 这个值一定是有限且唯一的,
+因为交叉熵希望参数尽可能大, 而正则化希望参数都为0, 二者共同作用之下, 就能确定一个唯一的解
 
 \end{document}
