@@ -115,8 +115,53 @@ $R = \begin{bmatrix}
 通过人为加入权重可以对不同的数据的重要性进行评估和加权, 能够更准确地进行评估和预测, 
 这样更重要的数据权重更大, 能更好地反映实际情况
 
-加权计算和直接将$(x_i,y_i)$复制$r_i$次的结果不一样, 因为复制数据后$X$矩阵会有重复行, 
-虽然有L2正则化, 但是矩阵也和加权计算的不一样, 最后结果也会不一样
+加权计算和直接将$(x_i,y_i)$复制$r_i$次的结果是一样的
+
+不妨设复制数据后的矩阵为$\bar{X}$和$\bar{y}$, 则我们可以发现$X^TRX = \bar{X}^T \bar{X}$
+(其中$\odot$表示元素与元素相乘):
+
+\begin{align*}
+    &\begin{bmatrix}
+        x_1 & \dots & x_n\\
+        1 & \dots & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        r_1 &  & \\
+        & \ddots & \\
+        & & r_n
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_1^T, 1\\
+        \vdots\\
+        x_n^T, 1
+    \end{bmatrix} 
+    =
+    \begin{bmatrix}
+        r_1 \odot  x_1 & \dots & r_n \odot x_n\\
+        r_1 & \dots & r_n
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_1^T, 1\\
+        \vdots\\
+        x_n^T, 1
+    \end{bmatrix}
+    \\&= 
+    \begin{bmatrix}
+        x_{1,1} & \dots & x_{1,r_1} & \dots & x_{n,1} & \dots & x_{n,r_n}\\
+        1 & \dots & 1 & \dots & 1 & \dots & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_{1,1}^T,1\\
+        \dots\\
+        x_{1,r_1}^T,1\\
+        \dots\\
+        x_{n,1}^T,1\\
+        \dots\\
+        x_{n,r_n}^T,1
+    \end{bmatrix}
+\end{align*}
+
+同理地有$X^TRy = \bar{X}^T \bar{y}$, 因此这两种计算方式都是可行的
 
 \section{问题三}
 
@@ -124,14 +169,12 @@ $R = \begin{bmatrix}
 \subsection{}
 
 \begin{equation*}
-    Cross-Entropy \ Loss = - \sum_{i=1}^n (\hat{t_i} log(\sigma(w^Tx+b))
-     + (1-\hat{t_i}) log (1- \sigma(w^Tx+b)))
+    Cross-Entropy \ Loss = - \sum_{i=1}^n t_i log[\sigma(w^T x_i + b)]
 \end{equation*}
 
 \subsection{}
 
-对于$x_i$来说, 它的似然函数是$L_i(\theta) = \sigma(z)^{\hat{t_i}} 
-(1-\sigma(z))^{1-\hat{t_i}}$, 其中$t_i$是一个0到1之间的实数, 表示$y_i=1$的概率, 
+对于$x_i$来说, 它的似然函数是$L_i(\theta) = \sigma(z)^{\hat{t_i}} $, 其中$t_i$是一个0到1之间的实数, 表示$y_i=1$的概率, 
 我们依然希望这个似然函数尽量大, 使得模型能够更好地预测$y_i$, 因此我们要
 取log再取负, 得到我们可以优化的损失函数
 
