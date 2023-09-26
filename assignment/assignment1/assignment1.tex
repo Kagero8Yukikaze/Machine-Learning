@@ -97,10 +97,10 @@ $R = \begin{bmatrix}
 
 计算偏导数:
 \begin{align*}
-    \frac{\partial L(\hat{w})}{\partial \hat{w}} &= \frac{y^T R y - y^T R X\hat{w}
-    -\hat{w}^T X^T R y + \hat{w}^T X^T R X \hat{w}+\lambda \hat{w}^T \hat{w}}{\partial \hat{w}} \\
-    &= \frac{y^T R y - 2 y^T R X\hat{w} + \hat{w}^T X^T R X \hat{w}
-    +\lambda \hat{w}^T \hat{w}}{\partial \hat{w}} \\
+    \frac{\partial L(\hat{w})}{\partial \hat{w}} &= \frac{\partial(y^T R y - y^T R X\hat{w}
+    -\hat{w}^T X^T R y + \hat{w}^T X^T R X \hat{w}+\lambda \hat{w}^T \hat{w})}{\partial \hat{w}} \\
+    &= \frac{\partial(y^T R y - 2 y^T R X\hat{w} + \hat{w}^T X^T R X \hat{w}
+    +\lambda \hat{w}^T \hat{w})}{\partial \hat{w}} \\
     &= -2 X^T R y + 2 X^T R X \hat{w} + 2\lambda I \hat{w} \\
     &= 0
 \end{align*}
