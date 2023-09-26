@@ -124,14 +124,14 @@ $R = \begin{bmatrix}
 \subsection{}
 
 \begin{equation*}
-    Cross-Entropy \ Loss = - \sum_{i=1}^n (y_i log(\hat{t_i})
-     + (1-y_i) log (1- \hat{t_i}))
+    Cross-Entropy \ Loss = - \sum_{i=1}^n (\hat{t_i} log(\sigma(w^Tx+b))
+     + (1-\hat{t_i}) log (1- \sigma(w^Tx+b)))
 \end{equation*}
 
 \subsection{}
 
-对于$x_i$来说, 它的似然函数是$L_i(\theta) = t_i^{y_i} 
-+ (1-t_i)^{1-y_i}$, 其中$t_i$是一个0到1之间的实数, 表示$y_i=1$的概率, 
+对于$x_i$来说, 它的似然函数是$L_i(\theta) = \sigma(z)^{\hat{t_i}} 
+(1-\sigma(z))^{1-\hat{t_i}}$, 其中$t_i$是一个0到1之间的实数, 表示$y_i=1$的概率, 
 我们依然希望这个似然函数尽量大, 使得模型能够更好地预测$y_i$, 因此我们要
 取log再取负, 得到我们可以优化的损失函数
 
