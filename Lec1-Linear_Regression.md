@@ -24,6 +24,7 @@ When 2 models both fit the training data equally well, which one should we choos
   - which means average error of f(x;D) over infinitely many $D \sim P(D)$
   - we define $\bar{f}(x) :=  E_D(f(x;D)-y) $
   - now we have:
+
 $$
     E_D(f(x;D)-y)^2 = E_D[f(x;D)-\bar{f}(x) + \bar{f}(x) - y]^2 \\[3mm]
     = E_D[f(x;D)-\bar{f}(x)]^2 + 2E_D[f(x;D)-\bar{f}(x)] [\bar{f}(x)-y] + E_D[\bar{f}(x)-y]^2 \\[3mm]
@@ -49,6 +50,7 @@ $$
   - $\hat{f}(x) = f(x;D,|D|\rightarrow \infin)$ is a model trained over an infinitely large D
   - 虽然上述推导使用了第一个函数，但在实际过程中数据自然越多越好，那么也就是第二个模型往往表现更好
   - example:
+
 $$
 P(D) = \left\{
 \begin{aligned}
@@ -72,23 +74,30 @@ $$
 - Loss function
   - squared loss $(f(x_i)-y_i)^2$
 - 优化目标
+
 $$
     \mathop{min}\limits_{w,b} \sum_{i=1}^n (f(x_i)-y_i)^2 \\
     = \mathop{min}\limits_{w,b} \sum_{i=1}^n (w^T x_i + b - y_i)^2 := L(w,b)
 $$
+
 - 求梯度
+
 $$
     \frac{\partial L}{\partial w} = 2 \sum_{i=1}^n(w^T x_i + b - y_i)x_i \\
     \frac{\partial L}{\partial b} = 2 \sum_{i=1}^n(w^T x_i + b - y_i)
 $$
 注意这里是一个向量对标量求梯度，结果还是一个向量
+
 - Gradient Descent
+
 $$
     w \leftarrow w - \alpha \frac{\partial L}{\partial w} \\[3mm]
     b \leftarrow b - \alpha \frac{\partial L}{\partial b}
 $$
 $\alpha$ is the **learning rate** and it's a **hyperparameter**
+
 - 常用公式
+
 $$
 w \in \mathbb{R}^d \\
 \frac{\partial w^Tw}{\partial w} = 2 w \\[3mm]
@@ -100,6 +109,7 @@ $$
 
 - Least squares actually has closed-form solution! (which also regards as **Normal Equation**)
 - we need some vectorized variables:
+
 $$
     x = \begin{bmatrix}
         x_1^T, 1\\
@@ -120,7 +130,9 @@ $$
         y_n
     \end{bmatrix} \in \mathbb{R}^n
 $$
+
 - the loss function now looks like this:
+
 $$
     L(\hat{w}) = (y-x\hat{w})^T (y-x\hat{w})
 $$
@@ -132,13 +144,16 @@ $$
         f(x_n)
     \end{bmatrix}
 $$
+
 - to compute $\hat{w}$ we want the gradient to be 0
+
 $$
     \frac{\partial L(\hat{w})}{\partial \hat{w}} = \frac{\partial [(y-x\hat{w})^T (y-x\hat{w})]}{\partial \hat{w}} \\[3mm]
     = \frac{\partial (y^T y - y^T x \hat{w} - \hat{w}^T x^T y + \hat{w}^T x^T x \hat{w})}{\partial \hat{w}} \\[3mm]
     = \frac{\partial (y^T y - 2 y^T x \hat{w} + \hat{w}^T x^T x \hat{w})}{\partial \hat{w}} \\[3mm]
     = -2x^Ty  + 2x^T x \hat{w} = 0
 $$
+
 - now we focus on $x^Tx$:
   - 我们知道$x^Tx$是一个实对称矩阵，那么它是半正定的，也就是说该矩阵的特征值都是大于等于0的
   - 如果$x^Tx$不满秩，那么显然这个方程里$\hat{w}$是可能有多于一个解的，造成这种结果的可能原因是：
@@ -146,6 +161,7 @@ $$
       - $rank(x^Tx) = rank(x) \leq \ min\{d+1, n\}$
     - $x$ has repeated columns or rows
   - 如果$x^Tx$满秩，则特征值都大于0，我们可以对其进行特征值分解：
+
 $$
     x^Tx = U \Lambda U^T \\
     = U \begin{bmatrix}
@@ -168,22 +184,28 @@ $$
 ### L2 Regularization
 
 - Linear Regression with L2 Regularization (Ridge Regression):
+
 $$
     min L(\hat{w}) + \lambda ||\hat{w}||_2^2
 $$
   - $\lambda$ is a positive **constant hyperparameter** which can control the strength of regularization (weight decay)
   - 简单来说就是避免某个$w$特别突出，使所有的$w$更平均一些
+
 - loss function with L2 Regularization:
+
 $$
     J(\hat{w}) = (y-x\hat{w})^T (y-x\hat{w}) + \lambda w^T w \ \ (\lambda > 0)
 $$
+
 - compute the gradient:
+
 $$
     \frac{\partial J(\hat{w})}{\partial \hat{w}} = -2x^T y + 2 x^T x \hat{w} + 2 \lambda \hat{w} \\
     = -2 x^T y + 2(x^T x + \lambda I) \hat{w} = 0
 $$
 
 - 这是我们再对$x^T x + \lambda I$进行特征值分解，就可以得到:
+
 $$
     x^T x + \lambda I = U (\Lambda + \lambda I) U^T \\
     = U \begin{bmatrix}
@@ -200,6 +222,7 @@ $$
 ### L1 Regularization
 
 - Linear Regression with L1 Regularization (Lasso Regression):
+
 $$
     min L(\hat{w}) + \lambda ||\hat{w}||_1 \\
     = min L(\hat{w}) + \lambda \sum_{i=1}^{d+1}|\hat{w_i}|
