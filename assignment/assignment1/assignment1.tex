@@ -169,14 +169,14 @@ $R = \begin{bmatrix}
 \subsection{}
 
 \begin{equation*}
-    Cross-Entropy \ Loss = - \sum_{i=1}^n t_i log[\sigma(w^T x_i + b)]
+    Cross-Entropy \ Loss = - \sum_{i=1}^n t_i log[\sigma(w^T x_i + b)] + (1-t_i)(1-log[\sigma(w^T x_i + b)])
 \end{equation*}
 
 \subsection{}
 
-对于$x_i$来说, 它的似然函数是$L_i(\theta) = \sigma(z)^{\hat{t_i}} $, 其中$t_i$是一个0到1之间的实数, 表示$y_i=1$的概率, 
+对于$x_i$来说, 它的似然函数是$L_i(\theta) = \sigma(z)^{t_i}(1-\sigma(z))^{1-t_i} $, 其中$t_i$是一个0到1之间的实数, 表示$y_i=1$的概率, 
 我们依然希望这个似然函数尽量大, 使得模型能够更好地预测$y_i$, 因此我们要
-取log再取负, 得到我们可以优化的损失函数
+取log再取负, 得到我们可以优化的损失函数. 我们还可以发现当软标签退化成硬标签时, 该方程就是一个普通的二分类方程
 
 \section{问题四}
 
