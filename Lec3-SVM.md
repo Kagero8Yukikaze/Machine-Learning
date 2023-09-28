@@ -99,11 +99,15 @@ $$
 
   - 我们可以发现，$w^Tx+b=0$是一个超平面，而$kw^Tx+kb=0, \ \forall k$都是同一个超平面，那么这样的话$ \frac{y_0(w^Tx_0+b)}{||w||} $就可以是任意值(which is called **functional margin**)，所以我们可以干脆令$y_0(w^Tx_0+b)=1$，背后的逻辑是不管真实的$\gamma$是多少，我都可以找到一个k使上式等于1，而且显然这个等式也是不影响$\gamma$的
 - then we can say that:
+
 $$
     \mathop{max}\limits_{w,b}\frac{1}{||w||} \ \ \ s.t. \ \  y_i(w^Tx_i+b) \geq 1, \ \ \forall i
 $$
 
 - now we have the **primal form** of SVM:
+
 $$
     \mathop{min}\limits_{w,b}\frac{1}{2}w^Tw \ \ \ s.t. \ \  y_i(w^Tx_i+b) \geq 1, \ \ \forall i
 $$
+
+- 我们管$x_0$这样的用来确定超平面的向量叫做**支持向量**(**support vector**)，由此我们即可以看出支持向量机的命名缘由：这些向量支撑了超平面的选择，我们只需考虑这些支持向量，而不用管别的向量，就可以确定最终的超平面
