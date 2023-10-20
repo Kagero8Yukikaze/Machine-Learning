@@ -13,15 +13,15 @@
 
 ### Equality Constraint
 
-- $\mathop{min}\limits_{x}f(x) \ \ \  s.t. \ \  h(x)=0$
+- $\mathop{min}\limits_{x}f(x) \quad  s.t. \ \  h(x)=0$
   - $\forall$ point $x$ on the constraint surface $h(x)=0$, we have $\nabla h(x)$ orthogonal to the surface
     - Because if $\nabla h(x)$ has tangent component, we can move along the direction to make $h(x) \neq 0$
   - For a local minimum $x^*$, $\nabla f(x^*)$ must be orthogonal to the surface
-    - Generally, $x^*$ is a local minimum $\Rightarrow$ $\exist \lambda \ \ \ s.t. \ \nabla f(x^*)+\lambda \nabla h(x^*)=0$
+    - Generally, $x^*$ is a local minimum $\Rightarrow$ $\exist \lambda \quad s.t. \ \nabla f(x^*)+\lambda \nabla h(x^*)=0$
     - (There may be some corner cases not satisfying this equation)
   - 可以说，极值点往往是限制平面与函数相切的点，那么此时该点处平面的梯度与函数的梯度就应该是相反的
 - When we have $K$ constraints:
-  - $\mathop{min}\limits_{x} f(x) \ \ \ s.t. \ \ h_i(x)=0, \ i \in \{1,\dots,K\}$
+  - $\mathop{min}\limits_{x} f(x) \quad s.t. \ \ h_i(x)=0, \ i \in \{1,\dots,K\}$
   - then $L(x,\lambda) = f(x)+\sum_{i=1}^K \lambda_i h_i(x) $
 - now we can say that:
 $$
@@ -34,11 +34,11 @@ x^* \ is \ a \ local \ minimum \Rightarrow \exist \lambda \left\{
 $$
 
   - $(1)$说明 $\lambda f(x^*)+\sum_{i=1}^n \lambda_i \nabla h_i(x^{ *})=0$
-  - $(2)$说明 $h_i(x^{ * })=0, \ \ \forall i$
+  - $(2)$说明 $h_i(x^{ * })=0, \quad \forall i$
 
 ### Inequality Constraint
 
-- $\mathop{min}\limits_{x}f(x) \ \ \  s.t. \ \  g(x) \leq 0$
+- $\mathop{min}\limits_{x}f(x) \quad  s.t. \ \  g(x) \leq 0$
   - $\forall$ point $x$ on the surface $g(x)=0$, $\nabla g(x)$ must be orthogonal to the surface and _point out of_ the region of $g(x) \leq 0$
   - For a local minimum $x^*$
     - the constraint is **active**:
@@ -61,7 +61,7 @@ $$
 
 ### K.K.T conditions
 
-- $\mathop{min}\limits_{x}f(x) \ \ \  s.t. \ \  h_i(x)=0, \ i\in \{1,\dots,K\}, \ \ g_j(x) \leq 0, \ j \in \{1,\dots,L\}$
+- $\mathop{min}\limits_{x}f(x) \quad  s.t. \ \  h_i(x)=0, \ i\in \{1,\dots,K\}, \ \ g_j(x) \leq 0, \ j \in \{1,\dots,L\}$
 - $L(x,\lambda,\mu) = f(x)+\sum_{i=1}^K \lambda_i h_i(x) + \sum_{j=1}^L \mu_j g_j(x)$
 - **K.K.T conditions**:
 $$
@@ -89,26 +89,26 @@ $$
   - this is called **geometric margin**
 - now we need to maximize this distance:
 $$
-    \mathop{max}\limits_{w,b,\gamma}\gamma \ \ \ s.t. \frac{y_i(w^Tx_i+b)}{||w||} \geq \gamma, \ \ \forall i
+    \mathop{max}\limits_{w,b,\gamma}\gamma \quad s.t. \frac{y_i(w^Tx_i+b)}{||w||} \geq \gamma, \quad \forall i
 $$
 
   - 但显然三个参数对于我们来说还是太多了，所以我们可以先假设找到了离超平面$w^Tx+b=0$最近的点$x_0$，此时有$\gamma_0 = \frac{y_0(w^Tx_0+b)}{||w||} = \gamma$
 - then we can update our object:
 $$
-    \mathop{max}\limits_{w,b}\frac{y_0(w^Tx_0+b)}{||w||} \ \ \ s.t. \ \  y_i(w^Tx_i+b) \geq y_0(w^Tx_0+b), \ \ \forall i
+    \mathop{max}\limits_{w,b}\frac{y_0(w^Tx_0+b)}{||w||} \quad s.t. \ \  y_i(w^Tx_i+b) \geq y_0(w^Tx_0+b), \ \ \forall i
 $$
 
   - 我们可以发现，$w^Tx+b=0$是一个超平面，而$kw^Tx+kb=0, \ \forall k$都是同一个超平面，那么这样的话$y_0(w^Tx_0+b)$就可以是任意值(which is called **functional margin**)，所以我们可以干脆令$y_0(w^Tx_0+b)=1$，背后的逻辑是不管真实的$\gamma$是多少，我都可以找到一个k使上式等于1(同理，不管上式等于多少，我们也总能找到相应的$w$使得几何距离不变)，而且显然这个等式也是不影响$\gamma$的
 - then we can say that:
 
 $$
-    \mathop{max}\limits_{w,b}\frac{1}{||w||} \ \ \ s.t. \ \  y_i(w^Tx_i+b) \geq 1, \ \ \forall i
+    \mathop{max}\limits_{w,b}\frac{1}{||w||} \quad s.t. \ \  y_i(w^Tx_i+b) \geq 1, \quad \forall i
 $$
 
 - now we have the **primal form** of SVM:
 
 $$
-    \mathop{min}\limits_{w,b}\frac{1}{2}w^Tw \ \ \ s.t. \ \  y_i(w^Tx_i+b) \geq 1, \ \ \forall i
+    \mathop{min}\limits_{w,b}\frac{1}{2}w^Tw \quad s.t. \ \  y_i(w^Tx_i+b) \geq 1, \quad \forall i
 $$
 
 - 我们管$x_0$这样的用来确定超平面的向量叫做**支持向量**(**support vector**)，由此我们即可以看出支持向量机的命名缘由：这些向量支撑了超平面的选择，我们只需考虑这些支持向量，而不用管别的向量，就可以确定最终的超平面
@@ -124,8 +124,8 @@ $$
   - margin $\gamma$ may be too small (there may be some outlier samples)
 - 我们可以改写primal form，把条件写进函数中：
 $$
-  L(w,b,\alpha) = \frac{1}{2}||w||^2 + \sum_{i=1}^n \alpha_i(1-y_i(w^T x_i+b)) \ \ \ (\alpha_i \geq 0)  \\
-  p^* = \mathop{min}\limits_{w,b} \mathop{max}\limits_{\alpha \geq 0} L(w,b,\alpha) \ \ \ \text{(primal form of SVM)}
+  L(w,b,\alpha) = \frac{1}{2}||w||^2 + \sum_{i=1}^n \alpha_i(1-y_i(w^T x_i+b)) \quad (\alpha_i \geq 0)  \\
+  p^* = \mathop{min}\limits_{w,b} \mathop{max}\limits_{\alpha \geq 0} L(w,b,\alpha) \quad \text{(primal form of SVM)}
 $$
 
   - if $1-y_i(w^T x_i+b) > 0$, then $\alpha \rightarrow \infty$ and $L \rightarrow \infty$
@@ -143,7 +143,7 @@ $$
 - $d^* \leq p^*$
 
 $$
-   d^* = \mathop{max}\limits_{\alpha \geq 0} \mathop{min}\limits_{w,b} L(w,b,\alpha) \leq \mathop{max}\limits_{\alpha \geq 0} L(w,b,\alpha) \ \ \ \forall w,b \\
+   d^* = \mathop{max}\limits_{\alpha \geq 0} \mathop{min}\limits_{w,b} L(w,b,\alpha) \leq \mathop{max}\limits_{\alpha \geq 0} L(w,b,\alpha) \quad \forall w,b \\
    d^* \leq \mathop{min}\limits_{w,b} \mathop{max}\limits_{\alpha \geq 0} L(w,b,\alpha) = p^*
 $$
 
@@ -193,7 +193,7 @@ $$
 
 $$
   max \sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i^T x_j  \\
-  s.t. \ \ \  \alpha_i \geq 0 \ \ \forall i, \ \ \ \sum_{i=1}^n \alpha_i y_i = 0
+  s.t. \quad  \alpha_i \geq 0 \quad \forall i, \quad \sum_{i=1}^n \alpha_i y_i = 0
 $$
 
 - **SMO**(Sequential Minimal Optimization)
@@ -233,9 +233,9 @@ $$
 ### Kernel Trick
 
 - Define similarity between 2 points $X,Z$
-  - Linear Kernel $K(X,Z) = X^TZ$
-  - Polynomial Kernel $K(X,Z) = (X^TZ+1)^P$
-  - Gaussian / RBF(Radial Basis Function) Kernel $K(X,Z) = exp(-\frac{||X-Z||^2}{2\sigma^2})$
+  - **Linear Kernel** $K(X,Z) = X^TZ$
+  - **Polynomial Kernel** $K(X,Z) = (X^TZ+1)^P$
+  - **Gaussian / RBF(Radial Basis Function) Kernel** $K(X,Z) = exp(-\frac{||X-Z||^2}{2\sigma^2})$
 - e.g.  $\Phi : \mathbb{R}^d \rightarrow \mathbb{R}^{d'}$
   - $\Phi(X)$ maps $X$ to higher dimension
   - $X=(X_1,X_2)^T \in \mathbb{R}^2 \rightarrow \Phi(X) = (1,X_1,X_2,X_1^2,X_2^2,X_1X_2) \in \mathbb{R}^6 $
@@ -259,5 +259,56 @@ $$
   - union of polynomial kernels from $p=0$ to $\infty$
   - implicitly map data to infinite-dimension space and do inner product
   - 这里的$\sigma$可以自行控制，当$\sigma$大时，泰勒多项式会很快趋近于0，即此时映射成的向量维数不会很高；而当$\sigma$小时，则能够泰勒展开较多的项，此时就会映射成一个较高维的向量. 可以说，$\sigma$控制了映射维数的大小
+  - $\sigma \rightarrow 0$时，$K(X,Z)\rightarrow 0$，此时类似$1-NN$，只有与$X$最近的点才会起作用
 - $d^* $与$ p^*$：
   - $ p^* $计算$w,b$共$d+1$维，其对偶形式$ d^* $则计算$\alpha$共$n$维，一般来说$n$是很大的，但我们依然选择去用$ d^* $计算，主要是考虑到了高斯核函数，根据上述的泰勒展开，我们可以发现理论上这个核函数可以把原始向量映射到一个**无穷维的空间**中，那么显然此时$w,b$也可以无限大，再用$ p^* $来计算就不那么划算了
+
+## Soft-margin SVM
+
+- Slack variables to handle outliers
+  - previously, we require $y_i(w^T x_i+b)\geq 1$. Now, we introduce slack variables $\xi_i \geq 0$ and require $y_i(w^T x_i+b) \geq 1-\xi_i$
+  - must restrict $\xi_i$ to be small
+  - $\xi_i$ 表示样本最多可以与$w^T x_i+b=0$**偏离的程度**
+
+### Unconstrained Form
+
+- Soft-margin SVM
+$$
+\begin{align*}
+   &\mathop{min}\limits_{w,b,\xi} \frac{1}{2}||w||^2+c\sum_{i=1}^n \xi_i \\
+    s.t. \quad &y_i(w^T x_i+b)\geq 1-\xi_i\\
+    &\xi_i \geq 0\\
+    \text{化简后可得} &\mathop{min}\limits_{w,b} \frac{1}{2}||w||^2+c\sum_{i=1}^n \max\{0,1-y_i(w^T x_i+b)\}
+\end{align*}
+$$
+
+  - becomes an **unconstrained** optimization
+  - $\max\{0,1-y_i(w^T x_i+b)\}$ is called **Hinge Loss**
+  - $c \rightarrow \infty \Rightarrow \xi_i=0 \Rightarrow \text{hard margin}$
+
+### Dual Form
+
+- Dual Form of soft-margin SVM
+$$
+\begin{align*}
+  &\mathop{max}\limits_{\alpha, \beta \geq 0} \mathop{min}\limits_{w,b,\xi} L(w,b,\xi,\alpha,\beta)\\
+  &=\frac{1}{2}||w||^2+c\sum_{i=1}^n\xi_i+\sum_{i=1}^n\alpha_i(1-\xi_i-y_i(w^Tx_i+b))-\sum_{i=1}^n\beta_i \xi_i
+\end{align*}
+$$
+
+- Partial derivatives
+$$
+\begin{align*}
+  &\frac{\partial L}{\partial w}=w-\sum_{i=1}^n \alpha_i y_i x_i=0\\
+  &\frac{\partial L}{\partial b}=-\sum_{i=1}^n \alpha_i y_i=0\\
+  &\frac{\partial L}{\partial \xi_i}=c-\alpha_i-\beta_i=0\\
+  &\text{整理可得}\\
+  &\mathop{max} \frac{1}{2}(\sum_{i=1}^n \alpha_i y_i x_i)^T(\sum_{j=1}^n \alpha_j y_j x_j) + \sum_{i=1}^n \alpha_i - \sum_{i=1}^n \alpha_i y_i x_i^T(\sum_{j=1}^n \alpha_j y_j x_j)\\
+  = &\mathop{max}\sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i^T x_j\\
+  &s.t. \quad 0\leq \alpha_i \leq c, \quad \sum_{i=1}^n \alpha_i y_i=0
+\end{align*}
+$$
+
+  - $c\rightarrow \infty \Rightarrow \text{hard margin}$
+  - $c$ is small $\Rightarrow$ no individual point dominates the prediction(hyperplane) and is robust to outlier
+  - $c$ controls the **strength of regularization**
