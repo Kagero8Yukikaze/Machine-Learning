@@ -21,6 +21,36 @@
 
 \section{问题一}
 
+我们要求的是：
+\begin{align*}
+    &\mathop{min}\limits_{x,y,z}x^2+y^2+z^2\\
+    \text{s.t.} \quad & x+y+z=9\\
+    &x+2y+3z=20
+\end{align*}
+
+因此我们可以构造拉格朗日多项式：
+\begin{equation*}
+    L(x,y,z,\lambda_1,\lambda_2)=x^2+y^2+z^2 + \lambda_1(x+y+z-9) + \lambda_2(x+2y+3z-20)
+\end{equation*}
+
+对于使$f(x,y,z)$最小的$x^*,y^*,z^*$，我们有：
+\begin{align*}
+    &\nabla_x L(x^*,y^*,z^*,\lambda_1,\lambda_2)=0\\
+    &\nabla_y L(x^*,y^*,z^*,\lambda_1,\lambda_2)=0\\
+    &\nabla_z L(x^*,y^*,z^*,\lambda_1,\lambda_2)=0\\
+    &\nabla_{\lambda_1} L(x^*,y^*,z^*,\lambda_1,\lambda_2)=0\\
+    &\nabla_{\lambda_2} L(x^*,y^*,z^*,\lambda_1,\lambda_2)=0
+\end{align*}
+
+解得：
+\begin{align*}
+    &x^*=3\\
+    &y^*=4\\
+    &z^*=5\\
+    &\lambda_1=\lambda_2=-2
+\end{align*}
+
+因此$\mathop{min}\limits_{x,y,z}f(x,y,z)=50$
 
 
 \section{问题二}
@@ -28,10 +58,27 @@
 
 \subsection{}
 
+对于平面上的样本，它们都满足：
+\begin{equation*}
+    y_i(w^T x_i+b)\geq 1
+\end{equation*}
 
+取等号当且仅当$x_i$是支持向量. 现在已知$(6,5),(5,9),(2,4)$为支持向量，假设超平面为$w_1x_1+w_2x_2+b=0$，则有：
+\begin{align*}
+    &y_{(6,5)}(6w_1+5w_2+b)=1\\
+    &y_{(5,9)}(5w_1+9w_2+b)=1\\
+    &y_{(2,4)}(2w_1+4w_2+b)=1\\
+\end{align*}
+
+解得：
+\begin{align*}
+    &w=(\frac{8}{17},\frac{2}{17})^T\\
+    &b=-\frac{41}{17}
+\end{align*}
 
 \subsection{}
 
+对于$x_1=(1,15)$和$x_2=(4,2)$，有$wx_1+b<0$和$wx_2+b<0$. 因此两个新样本点都是负样本. 
 
 \subsection{}
 
@@ -42,7 +89,17 @@
 
 \subsection{}
 
+由于已知$\alpha_i > 0, \ \ \forall i$，故这6个样本点均为支持向量，首先计算$w$：
+\begin{align*}
+    w&=\sum_{i=1}^{6}\alpha_i y_i x_i\\
+    &=(0, -2.1)^T
+\end{align*}
 
+因此可以计算得到：
+\begin{align*}
+    b&=\frac{1}{y_1}-w^T x_1\\
+    &=3.01
+\end{align*}
 
 \subsection{}
 

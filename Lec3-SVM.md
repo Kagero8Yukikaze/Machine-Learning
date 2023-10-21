@@ -203,7 +203,7 @@ $$
 - When we have solution $\alpha^*$ for $d^*$, how to get $w^*,b^*$:
 
 $$
-  w^* = \sum_{i=1}^n\alpha_i y_i x_i  \\
+  w^* = \sum\alpha_i y_i x_i  \\
   b^* = \frac{1}{y_i}-{w^*}^Tx_i  \\
   (x_i,y_i)\text{ is a support vector}
 $$
@@ -225,7 +225,7 @@ $$
   - $\alpha$相当于权重，只有被认为是支持向量的权重才会大于0，其他都置0，表示其他的向量对于超平面完全是没用的，可以不用考虑
 - when we have a new test point $x$:
 $$
-  f(x) = \sum_{i \in \text{support vectors}}\alpha_i^* y_i x_i^T x_i + b^*
+  f(x) = \sum_{i \in \text{support vectors}}\alpha_i^* y_i x^T x_i + b^*
 $$
 
   - 对于一个新来的点，我们只要让其和支持向量做内积，看$f(x)$大于0还是小于0即可将其分类
