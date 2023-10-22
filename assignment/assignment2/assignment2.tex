@@ -11,7 +11,7 @@
 \geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
 
 % 标题信息
-\title{课后练习1}
+\title{课后练习2}
 \author{}
 \date{}
 
@@ -82,6 +82,17 @@
 
 \subsection{}
 
+\newtheorem*{proof}{Proof}
+
+\begin{proof}
+    对于一个线性可分的数据分布，一定存在一个线性超平面$w^Tx+b=0$，使得正负样本能够完全位于超平面的两侧，
+    其中支持向量是那些满足$y_i(w^Tx_i+b)=1$的向量.
+    
+    我们不妨假设正样本中不存在支持向量，即不存在使得$y_i(w^Tx_i+b)=1$的向量.
+    取正样本中$y_i(w^Tx_i+b)$值最小的向量$x_j$并记其值为$k>1$，那么必然有$y_i((\frac{w}{k})^Tx_j+\frac{b}{k})=1$.
+    且$(\frac{w}{k})^Tx+\frac{b}{k}=0$是同一个线性超平面，这表明$x_j$是正样本中的一个支持向量，
+    假设不成立. 同理可证负样本中也必然存在至少一个支持向量，因此正负样本中均存在至少一个支持向量.
+\end{proof}
 
 
 \section{问题三}
@@ -89,23 +100,31 @@
 
 \subsection{}
 
-由于已知$\alpha_i > 0, \ \ \forall i$，故这6个样本点均为支持向量，首先计算$w$：
+由于已知$\alpha_i > 0, \ \ \forall i$，故这6个样本点均为支持向量，因此可以计算得到：
 \begin{align*}
-    w&=\sum_{i=1}^{6}\alpha_i y_i x_i\\
-    &=(0, -2.1)^T
-\end{align*}
-
-因此可以计算得到：
-\begin{align*}
-    b&=\frac{1}{y_1}-w^T x_1\\
-    &=3.01
+    b&=\frac{1}{y_1}-\sum_{i=1}^{6}\alpha_i y_i \exp(-\frac{||x_i-x_1||^2}{2}) \\
+    &\approx -0.07389
 \end{align*}
 
 \subsection{}
 
+\begin{align*}
+    f(x)=\sum_{i=1}^6 \alpha_i y_i \exp(-\frac{||x-x_i||^2}{2}) +b
+\end{align*}
 
 \subsection{}
 
+对于样本$x_4=(2,2)$：
+\begin{align*}
+    f(x_4)=\sum_{i=1}^{6}\alpha_i y_i \exp(-\frac{||x_i-x_4||^2}{2})+b<0 
+\end{align*}
+故可以验证其是一个负样本
+
+对于新的样本点$x_7=(-2,-2)$：
+\begin{align*}
+    f(x_7)=\sum_{i=1}^{6}\alpha_i y_i \exp(-\frac{||x_i-x_7||^2}{2})+b>0
+\end{align*}
+故其是一个正样本
 
 
 \section{问题四}
@@ -113,13 +132,49 @@
 
 \subsection{}
 
+加入松弛变量前:
+\begin{align*}
+    &y_3(w^T x_3+b)=1\\
+    &y_4(w^T x_4+b)=1
+\end{align*}
+因此$x_3$和$x_4$是支持向量
+
+加入松弛变量后，由于$\xi_1=\xi_2=\xi_4=0$，而
+\begin{align*}
+    y_3({w'}^T x_3+b')\geq 1-\xi_3=-0.5
+\end{align*}
+故新的分隔超平面为：
+\begin{align*}
+    0.5x^{(1)}+0.5x^{(2)}-2=0
+\end{align*}
+此时$x_2$和$x_4$为支持向量
+
+\subsection{}
+
+硬间隔为：
+\begin{align*}
+    \frac{|w^Tx_3+b|}{||w||}=\frac{\sqrt{2}}{4}
+\end{align*}
+
+软间隔为：
+\begin{align*}
+    \frac{|{w'}^T x_2+b'|}{||w'||}=\sqrt{2}
+\end{align*}
+
+间隔变大，模型的鲁棒性更高，对噪声的抗干扰能力更强
 
 
 \subsection{}
 
+设四个数据点的Hinge Loss为$L_1, \dots, L_4$，则：
+\begin{align*}
+    &L_1=\max\{0,1-y_1({w'}^T x_1+b')\}=0\\
+    &L_2=\max\{0,1-y_2({w'}^T x_2+b')\}=0\\
+    &L_3=\max\{0,1-y_3({w'}^T x_3+b')\}=1.5\\
+    &L_4=\max\{0,1-y_4({w'}^T x_4+b')\}=0\\
+\end{align*}
 
-\subsection{}
-
-
+只有分错的点和非常靠近超平面的点的Hinge Loss才不会为0，其余数据点均为0，
+不用考虑，因此模型的稀疏性得到了保证
 
 \end{document}
