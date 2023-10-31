@@ -29,9 +29,9 @@ $$
 $$
 
 - so now we have our **loss function** for Logistic Regression:
-$$
-\mathop{min}\limits_{w,b} -\sum_{i=1}^n [y_i log(\sigma(w^T x + b)) + (1 - y_i)log(1 - \sigma(w^T x +b))]
-$$
+  $$
+  \mathop{min}\limits_{w,b} -\sum_{i=1}^n [y_i log(\sigma(w^T x + b)) + (1 - y_i)log(1 - \sigma(w^T x +b))]
+  $$
   - negative log likelihood = cross entropy loss (交叉熵)
 
 ## Optimization
@@ -56,19 +56,18 @@ L(\hat{W}) = -\sum_{i=1}^n [y_i log \frac{1}{1+e^{-\hat{W}^T \hat{X_i}}} + (1 - 
 $$
 
 - 求梯度:
-
-$$
-\frac{\partial L(\hat{W})}{\partial \hat{W}} = -\sum_{i=1}^n (y_i \hat{X_i} - \frac{\hat{X_i} e^{\hat{W}^T \hat{X_i}}}{1 + e^{\hat{W}^T \hat{X_i}}}) \in \mathbb{R}^{d+1} \\
-= -\sum_{i=1}^n(y_i - P(y=1|x_i))\hat{X_i}
-$$
+  $$
+  \frac{\partial L(\hat{W})}{\partial \hat{W}} = -\sum_{i=1}^n (y_i \hat{X_i} - \frac{\hat{X_i} e^{\hat{W}^T \hat{X_i}}}{1 + e^{\hat{W}^T \hat{X_i}}}) \in \mathbb{R}^{d+1} \\
+  = -\sum_{i=1}^n(y_i - P(y=1|x_i))\hat{X_i}
+  $$
   - when $y_i = P(y=1|x_i), \forall i$, then $\frac{\partial L(\hat{W})}{\partial \hat{W}} = 0$
     - 这时模型完全能够反映正确的分类，说明此时所有的样本是线性可分(_linearly separable_)的，即可以被模型这个超平面(_hyperplane_)恰好一分为二；但是很显然更多的情况是样本线性不可分，但我们可以保证一定能找到一个全局最优解
 
 - 求Heissan矩阵:
-$$
-\frac{\partial ^2 L(\hat{W})}{\partial \hat{W} \partial \hat{W}^T} = \sum_{i=1}^n \frac{e^{-\hat{W}^T \hat{X_i}}}{(1 + e^{-\hat{W}^T \hat{X_i}})^2} \hat{X_i} \hat{X_i}^T \\
-= \sum_{i=1}^n P(y=1|x_i)(1-P(y=1|x_i))\hat{X_i} \hat{X_i}^T
-$$
+  $$
+  \frac{\partial ^2 L(\hat{W})}{\partial \hat{W} \partial \hat{W}^T} = \sum_{i=1}^n \frac{e^{-\hat{W}^T \hat{X_i}}}{(1 + e^{-\hat{W}^T \hat{X_i}})^2} \hat{X_i} \hat{X_i}^T \\
+  = \sum_{i=1}^n P(y=1|x_i)(1-P(y=1|x_i))\hat{X_i} \hat{X_i}^T
+  $$
   - 我们知道$\hat{X_i} \hat{X_i}^T$一定是一个半正定矩阵，那么可以说$L(\hat{W})$一定是一个凸函数，因此通过梯度下降它一定能找到一个全局最优解
 
 ## 标签为{-1,1}的逻辑回归
@@ -84,27 +83,27 @@ L(w,b) = \sum_{i=1}^n log(1+e^{-y_i(w^Tx_i+b)})
 $$
 
 - let $z_i := y_i(w^Tx_i+b)$, then:
-$$
-  z_i  \left\{
-\begin{aligned}
-\>>0 & & sign(y_i) = sign(w^Tx_i+b) \\
-<0 & & sign(y_i) = - sign(w^Tx_i+b) \\
-\end{aligned}
-\right.
-$$
+  $$
+    z_i  \left\{
+  \begin{aligned}
+  \>>0 & & sign(y_i) = sign(w^Tx_i+b) \\
+  <0 & & sign(y_i) = - sign(w^Tx_i+b) \\
+  \end{aligned}
+  \right.
+  $$
   - 可以发现$log(1+e^{z_i})$是一个平滑的单调递减函数，性质很好
   - $\sum_{i=1}^n loss(z_i)$ is the _number_ of training point that wrongly classified
   - $\frac{1}{n}  \sum_{i=1}^n loss(z_i)$ is the _error rate_
 
 - 0/1 loss function:
-$$
-  y = \left\{
-  \begin{aligned}
-    0 & & x \geq 0\\
-    1 & & x < 0\\
-  \end{aligned}
-  \right.
-$$
+  $$
+    y = \left\{
+    \begin{aligned}
+      0 & & x \geq 0\\
+      1 & & x < 0\\
+    \end{aligned}
+    \right.
+  $$
   - not differentiable
   - not continuous at $x=0$
   - cannot use gradient descent

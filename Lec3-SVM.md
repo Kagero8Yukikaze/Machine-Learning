@@ -10,7 +10,6 @@
 - $L(x,\lambda):=f(x)+\lambda h(x)$
   - $\lambda$ is _Lagrange Multiplier_
 
-
 ### Equality Constraint
 
 - $\mathop{min}\limits_{x}f(x) \quad  s.t. \ \  h(x)=0$
@@ -24,15 +23,14 @@
   - $\mathop{min}\limits_{x} f(x) \quad s.t. \ \ h_i(x)=0, \ i \in \{1,\dots,K\}$
   - then $L(x,\lambda) = f(x)+\sum_{i=1}^K \lambda_i h_i(x) $
 - now we can say that:
-$$
-x^* \ is \ a \ local \ minimum \Rightarrow \exist \lambda \left\{
-    \begin{array}{ll}
-        \nabla_x L(x^*,\lambda) = 0 & (1)\\
-        \nabla_{\lambda}L(x^*,\lambda) = 0 & (2)
-    \end{array}
-\right.
-$$
-
+  $$
+  x^* \ is \ a \ local \ minimum \Rightarrow \exist \lambda \left\{
+      \begin{array}{ll}
+          \nabla_x L(x^*,\lambda) = 0 & (1)\\
+          \nabla_{\lambda}L(x^*,\lambda) = 0 & (2)
+      \end{array}
+  \right.
+  $$
   - $(1)$说明 $\lambda f(x^*)+\sum_{i=1}^n \lambda_i \nabla h_i(x^{ *})=0$
   - $(2)$说明 $h_i(x^{ * })=0, \quad \forall i$
 
@@ -49,22 +47,22 @@ $$
       - $\exist \mu = 0, \ \ s.t. \ \nabla f(x^*)+\mu \nabla g(x^*)=0 $
     - 显然地，如果函数的最小值点在平面内部，自然这个平面的约束就没有用了，极值点就是这个最小值点；而如果函数的最小值点在平面外，那么就和equality constraint一样，极值点在平面的边界上
     - 总结:
-$$
-\exist \mu \geq 0, \ \ s.t. \ \nabla f(x^*)+\mu \nabla g(x^*)=0
-\left\{
-    \begin{array}{ll}
-        \mu = 0 & inactive\\
-        \mu > 0 & active
-    \end{array}
-\right.
-$$
+      $$
+      \exist \mu \geq 0, \ \ s.t. \ \nabla f(x^*)+\mu \nabla g(x^*)=0
+      \left\{
+        \begin{array}{ll}
+          \mu = 0 & inactive\\
+          \mu > 0 & active
+        \end{array}
+      \right.
+      $$
 
 ### K.K.T conditions
 
 - $\mathop{min}\limits_{x}f(x) \quad  s.t. \ \  h_i(x)=0, \ i\in \{1,\dots,K\}, \ \ g_j(x) \leq 0, \ j \in \{1,\dots,L\}$
 - $L(x,\lambda,\mu) = f(x)+\sum_{i=1}^K \lambda_i h_i(x) + \sum_{j=1}^L \mu_j g_j(x)$
 - **K.K.T conditions**:
-$$
+  $$
     x^* \ is \ a \ local \ minimum \Rightarrow \left\{
         \begin{array}{ll}
             \nabla_x L(x^*,\lambda,\mu)=0 & \\
@@ -74,8 +72,7 @@ $$
             \mu_j g_j(x^*)=0 & \forall j
         \end{array}
     \right.
-$$
-
+  $$
   - 对于$\mu_j g_j(x^*)=0$，若$x^*$在边界处，显然有$g_j(x^*)=0$；若$x^*$在内部，则有$\mu=0$，所以该式恒等于0
 
 ## Primal Form
@@ -88,16 +85,14 @@ $$
 - $\gamma = \mathop{min}\limits_{i=1,\dots,n} \gamma_i = \mathop{min}\limits_{i=1,\dots,n} \frac{y_i(w^Tx+b)}{||w||} $
   - this is called **geometric margin**
 - now we need to maximize this distance:
-$$
+  $$
     \mathop{max}\limits_{w,b,\gamma}\gamma \quad s.t. \frac{y_i(w^Tx_i+b)}{||w||} \geq \gamma, \quad \forall i
-$$
-
+  $$
   - 但显然三个参数对于我们来说还是太多了，所以我们可以先假设找到了离超平面$w^Tx+b=0$最近的点$x_0$，此时有$\gamma_0 = \frac{y_0(w^Tx_0+b)}{||w||} = \gamma$
 - then we can update our object:
-$$
+  $$
     \mathop{max}\limits_{w,b}\frac{y_0(w^Tx_0+b)}{||w||} \quad s.t. \ \  y_i(w^Tx_i+b) \geq y_0(w^Tx_0+b), \ \ \forall i
-$$
-
+  $$
   - 我们可以发现，$w^Tx+b=0$是一个超平面，而$kw^Tx+kb=0, \ \forall k$都是同一个超平面，那么这样的话$y_0(w^Tx_0+b)$就可以是任意值(which is called **functional margin**)，所以我们可以干脆令$y_0(w^Tx_0+b)=1$，背后的逻辑是不管真实的$\gamma$是多少，我都可以找到一个k使上式等于1(同理，不管上式等于多少，我们也总能找到相应的$w$使得几何距离不变)，而且显然这个等式也是不影响$\gamma$的
 - then we can say that:
 
@@ -123,20 +118,19 @@ $$
   - may be not linearly separable
   - margin $\gamma$ may be too small (there may be some outlier samples)
 - 我们可以改写primal form，把条件写进函数中：
-$$
-  L(w,b,\alpha) = \frac{1}{2}||w||^2 + \sum_{i=1}^n \alpha_i(1-y_i(w^T x_i+b)) \quad (\alpha_i \geq 0)  \\
-  p^* = \mathop{min}\limits_{w,b} \mathop{max}\limits_{\alpha \geq 0} L(w,b,\alpha) \quad \text{(primal form of SVM)}
-$$
-
+  $$
+    L(w,b,\alpha) = \frac{1}{2}||w||^2 + \sum_{i=1}^n \alpha_i(1-y_i(w^T x_i+b)) \quad (\alpha_i \geq 0)  \\
+    p^* = \mathop{min}\limits_{w,b} \mathop{max}\limits_{\alpha \geq 0} L(w,b,\alpha) \quad \text{(primal form of SVM)}
+  $$
   - if $1-y_i(w^T x_i+b) > 0$, then $\alpha \rightarrow \infty$ and $L \rightarrow \infty$
     - if $p^*$ exists, $1-y_i(w^T x_i+b) \leq 0$
   - if $1-y_i(w^T x_i+b) < 0$, then $\alpha = 0$
   - if $1-y_i(w^T x_i+b) = 0$, then $\alpha_i(1-y_i(w^T x_i+b)) = 0$
   - this is part of **K.K.T conditions**!
 - **Dual form of SVM**
-$$
-  d^* = \mathop{max}\limits_{\alpha \geq 0} \mathop{min}\limits_{w,b} L(w,b,\alpha)
-$$
+  $$
+    d^* = \mathop{max}\limits_{\alpha \geq 0} \mathop{min}\limits_{w,b} L(w,b,\alpha)
+  $$
 
 ### Weak Duality
 
@@ -158,28 +152,25 @@ $$
   - our function just fits these conditions!
 - So now we can solve the dual problem to solve the primal problem
   - if we have the solution of primal problem $w_p,b_p$ and the solution of dual problem $\alpha_d$
-$$
-  p^* = \mathop{min}\limits_{w,b} \mathop{max}\limits_{\alpha \geq 0} L(w,b,\alpha) = \mathop{max}\limits_{\alpha \geq 0} L(w_p,b_p,\alpha) \\
-  \geq L(w_p,b_p,\alpha_d) \geq \mathop{min}\limits_{w,b}L(w,b,\alpha_d) = \mathop{max}\limits_{\alpha \geq 0} \mathop{min}\limits_{w,b} L(w,b,\alpha) = d^*
-$$
-
+  $$
+    p^* = \mathop{min}\limits_{w,b} \mathop{max}\limits_{\alpha \geq 0} L(w,b,\alpha) = \mathop{max}\limits_{\alpha \geq 0} L(w_p,b_p,\alpha) \\
+    \geq L(w_p,b_p,\alpha_d) \geq \mathop{min}\limits_{w,b}L(w,b,\alpha_d) = \mathop{max}\limits_{\alpha \geq 0} \mathop{min}\limits_{w,b} L(w,b,\alpha) = d^*
+  $$
   - 根据Slator's Condition，这里我们就可以直接取等了
 
 ### Dual problem
 
 - 我们首先来看函数的内层$\mathop{min}\limits_{w,b}L(w,b,\alpha)$
   - 由于$L$是凸函数，所以我们可以通过找导函数的零点来求最小值
-$$
-  \frac{\partial L}{\partial w}= w - \sum_{i=1}^n \alpha_i y_ix_i = 0 \\
-  \frac{\partial L}{\partial b}= - \sum_{i=1}^n \alpha_i y_i = 0
-$$
-
+    $$
+    \frac{\partial L}{\partial w}= w - \sum_{i=1}^n \alpha_i y_ix_i = 0 \\
+    \frac{\partial L}{\partial b}= - \sum_{i=1}^n \alpha_i y_i = 0
+    $$
   - 所以我们有：
-$$
-  w = \sum_{i=1}^n \alpha_i y_i x_i = 0\\
-  \sum_{i=1}^n \alpha_i y_i = 0
-$$
-
+    $$
+    w = \sum_{i=1}^n \alpha_i y_i x_i = 0\\
+    \sum_{i=1}^n \alpha_i y_i = 0
+    $$
   - 可以发现这其实也是K.K.T conditions中的$\nabla_{w,b} L(w,b,\alpha)=0$
 
 - Substitute $w$ into $L$:
@@ -224,10 +215,9 @@ $$
   - we can save **only** the $\alpha_i^*$ of support vectors to save the model
   - $\alpha$相当于权重，只有被认为是支持向量的权重才会大于0，其他都置0，表示其他的向量对于超平面完全是没用的，可以不用考虑
 - when we have a new test point $x$:
-$$
-  f(x) = \sum_{i \in \text{support vectors}}\alpha_i^* y_i x^T x_i + b^*
-$$
-
+  $$
+    f(x) = \sum_{i \in \text{support vectors}}\alpha_i^* y_i x^T x_i + b^*
+  $$
   - 对于一个新来的点，我们只要让其和支持向量做内积，看$f(x)$大于0还是小于0即可将其分类
 
 ### Kernel Trick
@@ -247,15 +237,14 @@ $$
 - e.g. $X=(X_1,X_2),Z=(Z_1,Z_2)$  
 $(X^TZ+1)^2 = (X_1X_2+Z_1Z_2+1)^2 = (1,\sqrt{2}X_1,\sqrt{2}X_2,X_1^2,X_2^2,\sqrt{2}X_1X_2)^T(1,\sqrt{2}X_1,\sqrt{2}X_2,X_1^2,X_2^2,\sqrt{2}X_1X_2)$
 - Gaussian Kernel
-$$
-  K(X,Z) = exp(-\frac{||X||^2}{2\sigma^2})exp(-\frac{||Z||^2}{2\sigma^2})exp(-\frac{X^TZ}{\sigma^2})
-$$  
-and we know that:
-$$
-  exp(-\frac{X^TZ}{\sigma^2}) = 1 + \frac{X^TZ}{\sigma^2} + \frac{1}{2!}(\frac{X^TZ}{\sigma^2})^2 + \frac{1}{3!}(\frac{X^TZ}{\sigma^2})^3 + \dots \\
-  = \sum_{p=0}^{\infty} \frac{1}{p!}(\frac{X^TZ}{\sigma^2})^p
-$$
-
+  $$
+    K(X,Z) = exp(-\frac{||X||^2}{2\sigma^2})exp(-\frac{||Z||^2}{2\sigma^2})exp(-\frac{X^TZ}{\sigma^2})
+  $$  
+  and we know that:
+  $$
+    exp(-\frac{X^TZ}{\sigma^2}) = 1 + \frac{X^TZ}{\sigma^2} + \frac{1}{2!}(\frac{X^TZ}{\sigma^2})^2 + \frac{1}{3!}(\frac{X^TZ}{\sigma^2})^3 + \dots \\
+    = \sum_{p=0}^{\infty} \frac{1}{p!}(\frac{X^TZ}{\sigma^2})^p
+  $$
   - union of polynomial kernels from $p=0$ to $\infty$
   - implicitly map data to infinite-dimension space and do inner product
   - 这里的$\sigma$可以自行控制，当$\sigma$大时，泰勒多项式会很快趋近于0，即此时映射成的向量维数不会很高；而当$\sigma$小时，则能够泰勒展开较多的项，此时就会映射成一个较高维的向量. 可以说，$\sigma$控制了映射维数的大小
@@ -273,15 +262,14 @@ $$
 ### Unconstrained Form
 
 - Soft-margin SVM
-$$
-\begin{align*}
-   &\mathop{min}\limits_{w,b,\xi} \frac{1}{2}||w||^2+c\sum_{i=1}^n \xi_i \\
+  $$
+  \begin{align*}
+    &\mathop{min}\limits_{w,b,\xi} \frac{1}{2}||w||^2+c\sum_{i=1}^n \xi_i \\
     s.t. \quad &y_i(w^T x_i+b)\geq 1-\xi_i\\
     &\xi_i \geq 0\\
     \text{化简后可得} &\mathop{min}\limits_{w,b} \frac{1}{2}||w||^2+c\sum_{i=1}^n \max\{0,1-y_i(w^T x_i+b)\}
-\end{align*}
-$$
-
+  \end{align*}
+  $$
   - becomes an **unconstrained** optimization
   - $\max\{0,1-y_i(w^T x_i+b)\}$ is called **Hinge Loss**
   - $c \rightarrow \infty \Rightarrow \xi_i=0 \Rightarrow \text{hard margin}$
@@ -289,25 +277,25 @@ $$
 ### Dual Form
 
 - Dual Form of soft-margin SVM
-$$
-\begin{align*}
-  &\mathop{max}\limits_{\alpha, \beta \geq 0} \mathop{min}\limits_{w,b,\xi} L(w,b,\xi,\alpha,\beta)\\
-  &=\frac{1}{2}||w||^2+c\sum_{i=1}^n\xi_i+\sum_{i=1}^n\alpha_i(1-\xi_i-y_i(w^Tx_i+b))-\sum_{i=1}^n\beta_i \xi_i
-\end{align*}
-$$
+  $$
+  \begin{align*}
+    &\mathop{max}\limits_{\alpha, \beta \geq 0} \mathop{min}\limits_{w,b,\xi} L(w,b,\xi,\alpha,\beta)\\
+    &=\frac{1}{2}||w||^2+c\sum_{i=1}^n\xi_i+\sum_{i=1}^n\alpha_i(1-\xi_i-y_i(w^Tx_i+b))-\sum_{i=1}^n\beta_i \xi_i
+  \end{align*}
+  $$
 
 - Partial derivatives
-$$
-\begin{align*}
-  &\frac{\partial L}{\partial w}=w-\sum_{i=1}^n \alpha_i y_i x_i=0\\
-  &\frac{\partial L}{\partial b}=-\sum_{i=1}^n \alpha_i y_i=0\\
-  &\frac{\partial L}{\partial \xi_i}=c-\alpha_i-\beta_i=0\\
-  &\text{整理可得}\\
-  &\mathop{max} \frac{1}{2}(\sum_{i=1}^n \alpha_i y_i x_i)^T(\sum_{j=1}^n \alpha_j y_j x_j) + \sum_{i=1}^n \alpha_i - \sum_{i=1}^n \alpha_i y_i x_i^T(\sum_{j=1}^n \alpha_j y_j x_j)\\
-  = &\mathop{max}\sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i^T x_j\\
-  &s.t. \quad 0\leq \alpha_i \leq c, \quad \sum_{i=1}^n \alpha_i y_i=0
-\end{align*}
-$$
+  $$
+  \begin{align*}
+    &\frac{\partial L}{\partial w}=w-\sum_{i=1}^n \alpha_i y_i x_i=0\\
+    &\frac{\partial L}{\partial b}=-\sum_{i=1}^n \alpha_i y_i=0\\
+    &\frac{\partial L}{\partial \xi_i}=c-\alpha_i-\beta_i=0\\
+    &\text{整理可得}\\
+    &\mathop{max} \frac{1}{2}(\sum_{i=1}^n \alpha_i y_i x_i)^T(\sum_{j=1}^n \alpha_j y_j x_j) + \sum_{i=1}^n \alpha_i - \sum_{i=1}^n \alpha_i y_i x_i^T(\sum_{j=1}^n \alpha_j y_j x_j)\\
+    = &\mathop{max}\sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i^T x_j\\
+    &s.t. \quad 0\leq \alpha_i \leq c, \quad \sum_{i=1}^n \alpha_i y_i=0
+  \end{align*}
+  $$
 
   - $c\rightarrow \infty \Rightarrow \text{hard margin}$
   - $c$ is small $\Rightarrow$ no individual point dominates the prediction(hyperplane) and is robust to outlier
