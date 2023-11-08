@@ -146,7 +146,7 @@
 - **The VC Generalization bound**  
   With probability at least $1-\delta$, $\forall h\in\mathcal{H}$,
   $$
-    E_{out}(h)-E_{in}(h)<\sqrt{\frac{8}{n}\log\frac{2m_{\mathcal{H}(2n)}}{\delta}}=O(\sqrt{d_{VC}\frac{\log n}{n}-\frac{\log\delta}{n}})
+    E_{out}(h)-E_{in}(h)<\sqrt{\frac{8}{n}\log\frac{2m_{\mathcal{H}}(2n)}{\delta}}=O(\sqrt{d_{VC}\frac{\log n}{n}-\frac{\log\delta}{n}})
   $$
   - $n \nearrow \quad d_{VC} \searrow\quad \Rightarrow\quad \text{generalization error}\searrow$
   - This is a very loose bound, because we always consider **the worst cases**.

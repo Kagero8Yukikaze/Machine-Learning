@@ -273,6 +273,7 @@ $(X^TZ+1)^2 = (X_1X_2+Z_1Z_2+1)^2 = (1,\sqrt{2}X_1,\sqrt{2}X_2,X_1^2,X_2^2,\sqrt
   - becomes an **unconstrained** optimization
   - $\max\{0,1-y_i(w^T x_i+b)\}$ is called **Hinge Loss**
   - $c \rightarrow \infty \Rightarrow \xi_i=0 \Rightarrow \text{hard margin}$
+  - 要特别注意的是，任何一个**在软间隔内部**的点也是支持向量，也就是说，软间隔是由那些分错的点+分对但在间隔内部+在间隔上的点组成的
 
 ### Dual Form
 
