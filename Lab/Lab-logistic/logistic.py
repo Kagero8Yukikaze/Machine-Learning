@@ -90,18 +90,19 @@ class LogisticRegression():
         # !! Asumme that : self.w is already given.
 
         # TODO: first, you should add bias term to x
+        # bias = np.ones((x.shape[0], 1))
+
+        # x_bias = np.hstack((x, bias))
         
         # TODO: second, you should compute the probability by invoking sigmoid function
-        
+        z = x.dot(self.w)
 
+        prob = sigmoid(z)
+        
         # TODO: third, you should compute the prediction (W^T * x >= 0 --> y = 1, else y = -1)
+        pred = np.where(z >= 0, 1, -1)
         
-        pass
-        
-
-
-        
-    
+        return prob, pred
     
 
     def fit(
@@ -138,11 +139,11 @@ class LogisticRegression():
             
             
             # TODO: firstly, compute the loss with regularization term
+            loss = self.calLossReg(x, y)
             
-
-            # TODO: secondly, update the weight 
+            # TODO: secondly, update the weight
+            self.update(x, y)
             
-
             # plot loss and w module every 10 iterations
             if i % 10 == 0:
                 
@@ -174,9 +175,17 @@ class LogisticRegression():
 
     
         # TODO: 1. compute the gradient
+        z = x.dot(self.w)
+        
+        #partial = (x * y_new) / (1 + np.exp(y_new * z))
+        partial = (y[:, np.newaxis] * x) / (1 + np.exp(y * z)[:, np.newaxis])
+
+        gradient = -np.mean(partial, axis=0)
+
+        gradient += (self.reg / len(y)) * self.w
         
         # TODO: 2. update the weight 
-        pass
+        self.w -= self.lr * gradient
 
 
     def calLossReg(
@@ -197,7 +206,17 @@ class LogisticRegression():
         # TODO: compute the Logistic Regression loss, including regularization term
         # !! Note that the label y is from {-1, 1}
 
-        pass
+        z = np.dot(x, self.w)
+
+        ori_loss = np.log(1 + np.exp(- y * z))
+
+        avg_loss = np.mean(ori_loss)
+
+        reg_loss = (self.reg / (2 * len(y))) * np.sum(self.w ** 2)
+
+        loss = avg_loss + reg_loss
+
+        return np.mean(loss)
 
 
     def calLoss(
@@ -218,7 +237,17 @@ class LogisticRegression():
         # TODO: compute the Logistic Regression loss, including regularization term
         # !! Note that the label y is from {-1, 1}
 
-        pass
+        z = np.dot(x, self.w)
+
+        ori_loss = np.log(1 + np.exp(- y * z))
+
+        avg_loss = np.mean(ori_loss)
+
+        reg_loss = (self.reg / (2 * len(y))) * np.sum(self.w ** 2)
+
+        loss = avg_loss + reg_loss
+
+        return np.mean(loss)
 
 
 # from data_generator import gen_2D_dataset
