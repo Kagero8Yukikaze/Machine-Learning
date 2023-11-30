@@ -45,23 +45,23 @@
 
 - the original form:
   $$
-    \mathop{min}\limits_{w} \sum_{i=1}^n(y_i-w^T\Phi(x_i))^2
+    \mathop{min}\limits_{w} \sum_{i=1}^n(y_i-w^T\phi(x_i))^2
   $$
 
 ### MLE view
 
-- $y=w^T\Phi(x)+\epsilon,\quad\epsilon\sim N(0,\sigma^2)$
+- $y=w^T\phi(x)+\epsilon,\quad\epsilon\sim N(0,\sigma^2)$
   - $\epsilon$ is a Gaussian noise
-- $P(y\vert x;w,\sigma^2)=N(y|w^T\Phi(x),\sigma^2)$
+- $P(y\vert x;w,\sigma^2)=N(y|w^T\phi(x),\sigma^2)$
   - $w$ is the parameter
   - $\sigma^2$ is a hyperparameter
 - MLE form:
   $$
     \begin{align*}
         &\mathop{max}\limits_{w}\sum_{i=1}^n\log P(y_i\vert x_i)\\
-        \Leftrightarrow&\mathop{max}\limits_{w}\sum_{i=1}^n\log\bigl(\frac{1}{\sqrt{2\pi}\sigma}\exp(-\frac{(y_i-w^T\Phi(x_i))^2}{2\sigma^2})\bigr)\\
-        \Leftrightarrow&\mathop{max}\limits_{w}\sum_{i=1}^n-\frac{1}{2}\log 2\pi\sigma^2-\frac{(y_i-w^T\Phi(x_i))^2}{2\sigma^2}\\
-        \Leftrightarrow&\mathop{min}\limits_{w}\sum_{i=1}^n(y_i-w^T\Phi(x_i))^2
+        \Leftrightarrow&\mathop{max}\limits_{w}\sum_{i=1}^n\log\bigl(\frac{1}{\sqrt{2\pi}\sigma}\exp(-\frac{(y_i-w^T\phi(x_i))^2}{2\sigma^2})\bigr)\\
+        \Leftrightarrow&\mathop{max}\limits_{w}\sum_{i=1}^n-\frac{1}{2}\log 2\pi\sigma^2-\frac{(y_i-w^T\phi(x_i))^2}{2\sigma^2}\\
+        \Leftrightarrow&\mathop{min}\limits_{w}\sum_{i=1}^n(y_i-w^T\phi(x_i))^2
     \end{align*}
   $$
 
@@ -78,7 +78,7 @@
   - 我们先验地认为，$w$的期望为0，方差越小，说明我们对$w$的取值在0附近这一事件越自信
 - Estimation for _Ridge Regression_:
   $$
-    P(y\vert x,w;\sigma^2,\sigma_w^2)=N(y\vert w^T\Phi(x),\sigma^2)
+    P(y\vert x,w;\sigma^2,\sigma_w^2)=N(y\vert w^T\phi(x),\sigma^2)
   $$  
   From Bayesian Expectation Equation:
   $$
@@ -88,13 +88,13 @@
   $$
     \begin{align*}
         P(w\vert y,x)&=\frac{1}{z}\cdot\prod_{i=1}^n P(y_i\vert x_i,w)P(w)\\
-        &=\frac{1}{z}\cdot(\frac{1}{\sqrt{2\pi}\sigma})^n\cdot\exp(-\frac{\sum_{i=1}^n(y_i-w^T\Phi(x_i))^2}{2\sigma^2})\cdot(\frac{1}{\sqrt{2\pi}\sigma_w})^d\cdot\exp(-\frac{w^Tw}{2\sigma_w^2})
+        &=\frac{1}{z}\cdot(\frac{1}{\sqrt{2\pi}\sigma})^n\cdot\exp(-\frac{\sum_{i=1}^n(y_i-w^T\phi(x_i))^2}{2\sigma^2})\cdot(\frac{1}{\sqrt{2\pi}\sigma_w})^d\cdot\exp(-\frac{w^Tw}{2\sigma_w^2})
     \end{align*}
   $$
   $$
     \begin{align*}
-        \mathop{max}\limits_{w}P(w\vert y,x)&\Leftrightarrow\mathop{max}\limits_{w}-\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-w^T\Phi(x_i))^2-\frac{1}{2\sigma_w^2}w^Tw\\
-        &\Leftrightarrow \mathop{min}\limits_{w}\sum_{i=1}^n(y_i-w^T\Phi(x_i))^2+\frac{\sigma^2}{\sigma_w^2}\Vert w \Vert^2
+        \mathop{max}\limits_{w}P(w\vert y,x)&\Leftrightarrow\mathop{max}\limits_{w}-\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-w^T\phi(x_i))^2-\frac{1}{2\sigma_w^2}w^Tw\\
+        &\Leftrightarrow \mathop{min}\limits_{w}\sum_{i=1}^n(y_i-w^T\phi(x_i))^2+\frac{\sigma^2}{\sigma_w^2}\Vert w \Vert^2
     \end{align*}
   $$
 
@@ -115,7 +115,7 @@
   $$
     y(x)\sim GP(\text{mean}(x),k(\cdot,\cdot))
   $$
-  - we usually use $\text{mean}(x)=0$ (prior belief), which means that $y=w^T\Phi(x)=0$ as $w\sim N(0,\sigma_w^2I)$
+  - we usually use $\text{mean}(x)=0$ (prior belief), which means that $y=w^T\phi(x)=0$ as $w\sim N(0,\sigma_w^2I)$
   - we only need $k(x_i,x_j)=\exp(-\frac{\Vert x_i-x_j\Vert^2}{2\sigma^2})$
     - $k(x_i,x_j)$ 越大，表明$x_i$和$x_j$越接近，就越有可能同增减
 - Suppose $n$ training points $\{x_1,\dots,x_n\}$, let $K$ be Gram matrix, $K_{ij}=k(x_i,x_j)$  
@@ -142,6 +142,7 @@
   $$
     f(x^*)=\mu^*=k^T(x^*)K^{-1}y
   $$
+  - $ \mu^* $ is called **posterori mean**
 - In a more realistic setting, we can only observe $\hat{y}=y+\epsilon,\quad \epsilon\sim N(0,\sigma^2I)$, then
   $$
     \begin{align*}
@@ -161,3 +162,56 @@
         &=k(x_i,x_j)+\sigma^2 1(i=j)
     \end{align*}
   $$
+- 也就是说，每次采样一些$x$(服从高斯分布)及其对应的$y$，得到一个方程$y(x)$，那么多次采样后，方程$y(x)$也服从高斯分布
+
+### Recall Ridge Regression
+
+- recall the MAP view of Ridge Regression, we have $y_i=w^T\phi(x_i)+\epsilon_i$, and vectorize this formula:
+  $$
+  \begin{align*}
+    y=w^T\Phi +\epsilon \quad w\sim N(0,\sigma_w^2I)\quad\epsilon\sim N(0,\sigma^2I)
+  \end{align*}
+  $$
+  For $y_i$ and $y_j$:
+  $$
+  \begin{align*}
+    \text{cov}(y_i,y_j)&=Ey_iy_j-Ey_iEy_j\\
+    &=E(w^T\phi(x_i)+\epsilon_i)(w^T\phi(x_j)+\epsilon_j)\\
+    &=E(\phi^T(x_i)ww^T\phi(x_j))+E\epsilon_i\epsilon_j\\
+    &=\phi^T(x_i)Eww^T \phi(x_j)+\sigma^2 1(i=j)\\
+    &=\phi^T(x_i)\text{cov}(ww^T) \phi(x_j)+\sigma^2 1(i=j)\\
+    &=\sigma_w^2\phi^T(x_i)\phi(x_j)+\sigma^2 1(i=j)\\
+    &=\sigma_w^2k(x_i,x_j)+\sigma^2 1(i=j)
+  \end{align*}
+  $$
+  So we have:
+  $$
+  \begin{align*}
+    y \sim N(0,\Sigma)\quad \Sigma = \sigma_w^2K+\sigma^2I
+  \end{align*}
+  $$
+- For a new test point $x^*\in\mathbb{R}^{n'}$
+  $$
+  \begin{align*}
+    \mu^*&=\sigma_w^2k^T(x^*)(\sigma_w^2K+\sigma^2I)^{-1}y\\
+    &=k^T(x^*)(K+\frac{\sigma^2}{\sigma_w^2}I)^{-1}y\quad(\text{let }\frac{\sigma^2}{\sigma_w^2}\text{ be }\lambda)
+  \end{align*}
+  $$
+- **贝叶斯视角下的线性回归本质是高斯过程**
+- GP connects ERM of Ridge Regression, MAP of Linear Regression, and dual solution of Ridge Regression
+- **GP for Regression(GPR)**: typically take _RBF_ kernel $k(x,x')=\exp(-\frac{\Vert x-x'\Vert^2}{2l^2})$
+  - $l$ is called _length scale_ or _temperature_
+  - $\mu(x_i)$ not necessarily equals $y_i$ (because $\epsilon_i$ and $\text{cov}(y_i, y_j)$)
+  - when $l\rightarrow 0$ and $\sigma=0$, $\mu(x_i)=y_i$
+![img1](/img/8-1.jpg)
+
+## Bayesian Optimization (BO)
+
+- For _Black box_ functions (cannot use gradient descent)
+  1. Randomly sample $n$ points $x_1,\dots,x_n$ and corresponding $y_1,\dots,y_n$
+  2. fit a GP
+  3. use some acquisition function $a(x)$ to select next point to evaluate
+       - possible $a(x)$: _lower confidence bound_ $\mu(x)-\kappa\sigma(x)$
+  4. Use all $x,y$ to fit a new GP
+  5. Repeat until reaching a budget
+- For hyperparameter optimization, the input is possible value of hyperparameter, and the output is the validation error
