@@ -112,9 +112,10 @@
   $$
   to be $\bar{w}_i^{(t)}$, then we need to optimize
   $$
-    \mathop{min}\limits_{\alpha_t}\mathop{min}\limits_{f_t}\sum_{i=1}^n w_i^{(t)}\cdot\exp\bigl(-y_i\alpha_{t-1}f_{t-1}(x_i)\bigr)
+    \mathop{min}\limits_{\alpha_t}\mathop{min}\limits_{f_t}\sum_{i=1}^n w_i^{(t)}\cdot\exp\bigl(-y_i\alpha_{t}f_{t}(x_i)\bigr)
   $$
   - In Adaboost, we just train $f_t$ using its **original loss** and sample weights $w_i^{(t)}$, which means that we fix $\alpha_t$ and optimize $f_t$
+  - $\bar{w}_i^{(t)}$ 和 $w_i^{(t)}$只差一个常数
 - After solving $f_t$, we need to optimize
   $$
     \begin{align*}
