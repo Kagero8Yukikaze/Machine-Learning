@@ -191,14 +191,55 @@ $T$最小为2，如图所示，对于$f_1$，有两个点被分错，于是
 
 \subsection{}
 
-
+协方差矩阵为
+\begin{align*}
+    K=\begin{pmatrix}
+        k(x_1,x_1)&k(x_1,x_2)&k(x_1,x_3)\\
+        k(x_2,x_1)&k(x_2,x_2)&k(x_2,x_3)\\
+        k(x_3,x_1)&k(x_3,x_2)&k(x_3,x_3)\\
+    \end{pmatrix}
+    =\begin{pmatrix}
+        1 & 0.61 & 0.14 \\
+        0.61 & 1 & 0.61 \\
+        0.14 & 0.61 & 1\\
+    \end{pmatrix}
+\end{align*}
 
 \subsection{}
 
-
+\begin{align*}
+    \mu(x^*)&=k^T(x^*)K^{-1}y\\
+    &=\begin{pmatrix}
+        k(x_1,x_4)&k(x_2,x_4)&k(x_3,x_4)
+    \end{pmatrix} K^{-1}\begin{pmatrix}
+        0.6\\ 1.5\\ 3.2
+    \end{pmatrix}\\
+    &=2.23\\
+    \sigma^2(x^*)&=k(x^*,x^*)-k^T(x^*)K^{-1}k(x^*)\\
+    &=1-k^T(x^*)K^{-1}k(x^*)\\
+    &=0.52
+\end{align*}
 
 \subsection{}
 
+\begin{align*}
+    \mu(x^*)&=k^T(x^*)(K+\sigma^2I)^{-1}y\\
+    &=\begin{pmatrix}
+        k(x_1,x_4)&k(x_2,x_4)&k(x_3,x_4)
+    \end{pmatrix}
+    \begin{pmatrix}
+        1.5 & 0.61 & 0.14 \\
+        0.61 & 1.5 & 0.61 \\
+        0.14 & 0.61 & 1.5\\
+    \end{pmatrix}^{-1}
+    \begin{pmatrix}
+        0.6\\ 1.5\\ 3.2
+    \end{pmatrix}\\
+    &=1.28\\
+    \sigma^2(x^*)&=k(x^*,x^*)-k^T(x^*)(K+\sigma^2I)^{-1}k(x^*)\\
+    &=1-k^T(x^*)(K+\sigma^2I)^{-1}k(x^*)\\
+    &=0.74
+\end{align*}
 
 
 \end{document}
