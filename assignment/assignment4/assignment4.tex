@@ -139,9 +139,9 @@
 \begin{align*}
     L(h)=\sum_{(x_i,y_i)\in D}(y_i-g^{(T)}(x_i))^2
 \end{align*}
-设第$t$步得到的$g^{(t)}(x_i)$与$y_i$的残差为$r_i^{(t)}$:
+设$g^{(t-1)}(x_i)$与$y_i$的残差为$r_i^{(t)}$:
 \begin{align*}
-    r_i^{(t)}=y_i-g^{(t)}(x_i)
+    r_i^{(t)}=y_i-g^{(t-1)}(x_i)
 \end{align*}
 求偏导得到
 \begin{align*}
@@ -149,29 +149,12 @@
     &\Leftrightarrow\sum_{(x_i,y_i)\in D}(y_i-g^{(T-1)}(x_i)-\alpha_t f_t(x_i))f_t(x_i)=0\\
     &\Leftrightarrow\sum_{(x_i,y_i)\in D}f_t(x_i)(y_i-g^{(T-1)}(x_i))=\alpha_t \sum_{(x_i,y_i)\in D}f_t^2(x_i)
     \quad (f_t^2(x_i)=1)\\
-    &\Leftrightarrow\quad\alpha_t = \frac{\sum_{(x_i,y_i)\in D}f_t(x_i)r_i^{T-1}}{\vert D \vert}
+    &\Leftrightarrow\quad\alpha_t = \frac{\sum_{(x_i,y_i)\in D}f_t(x_i)r_i^{T}}{\vert D \vert}
 \end{align*}
 
 \subsection{}
 
-$T$最小为2，如图所示，对于$f_1$，有两个点被分错，于是
-\begin{align*}
-    e_1&=0.4\\
-    \alpha_1&=\frac{1}{2}\log(1.5)=0.2027
-\end{align*}
-可以更新参数得到
-\begin{align*}
-    &\bar{w}_1^{(2)}=\bar{w}^{(2)}_2=0.2449\\
-    &\bar{w}^{(2)}_3=\bar{w}_4^{(2)}=\bar{w}_5^{(2)}=0.1633\\
-    &w_1^{(2)}=w_2^{(2)}=0.245\\
-    &w_3^{(2)}=w_4^{(2)}=w_5^{(2)}=0.167
-\end{align*}
-对于$f_2$，同样有两个点被分错
-\begin{align*}
-    e_2&=0.334\\
-    \alpha_2&=\frac{1}{2}\log(0.666/0.334)=0.151
-\end{align*}
-可以发现此时$f_1$和$f_2$就可以将数据集正确分类，因此$T_{min}=2$
+$T$最小为2，如图所示，$\alpha_1=\alpha_2=1$
 
 \begin{figure*}
     \centering
