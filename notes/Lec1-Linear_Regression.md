@@ -40,7 +40,7 @@ When 2 models both fit the training data equally well, which one should we choos
 - Trade-off
   - simple model: high bias, low variance
   - complex model: low bias, high variance
-![example](/img/1-1.jpg){width=50% height=auto}
+![example](img/1-1.jpg){width=50% height=auto}
 - One more thing
   - $\bar{f}(x) = E_D(f(x;D))$ is an average model over infinitely sample small D
   - $\hat{f}(x) = f(x;D,|D|\rightarrow \infin)$ is a model trained over an infinitely large D

@@ -203,7 +203,7 @@
   - $l$ is called _length scale_ or _temperature_
   - $\mu(x_i)$ not necessarily equals $y_i$ (because $\epsilon_i$ and $\text{cov}(y_i, y_j)$)
   - when $l\rightarrow 0$ and $\sigma=0$, $\mu(x_i)=y_i$
-![img1](/img/8-1.jpg)
+![img1](img/8-1.jpg)
 
 ## Bayesian Optimization (BO)
 

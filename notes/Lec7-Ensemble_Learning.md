@@ -86,7 +86,7 @@
    $$
 
 - $g(x)\geq0$, predict $+1$, otherwise predict $-1$
-  ![img1](/img/7-1.jpg)
+  ![img1](img/7-1.jpg)
   - 可以看出，被分错的样本权重增加了，而且多个分类器叠加后就能实现非线性划分的效果
 
 #### Adaboost Derivation
