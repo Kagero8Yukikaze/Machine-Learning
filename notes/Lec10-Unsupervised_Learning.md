@@ -212,5 +212,6 @@
     \end{align*}
    $$
   4. Iterate i to iii until convergence
+- $\Sigma_k = \sigma^2I, \ \ \sigma\rightarrow0\quad \Rightarrow \quad\text{GMM}\rightarrow\text{K-means}$
 
 ![img2](img/10-2.jpg)
