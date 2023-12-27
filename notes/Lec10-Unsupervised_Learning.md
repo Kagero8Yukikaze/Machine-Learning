@@ -6,7 +6,7 @@
   2. **Clustering**: group similar data together
   3. **Generating Models**: sample new data from $P(x)$
 
-## Principal Component Analysis (PAC)
+## Principal Component Analysis (PCA)
 
 ![img1](img/10-1.jpg)
 
