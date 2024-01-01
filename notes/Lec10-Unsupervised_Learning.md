@@ -208,7 +208,7 @@
   3. Update $r_{ik}$
    $$
     \begin{align*}
-        r_{ik}=\frac{\pi_k \ N(x_i\vert \mu_k,\Sigma_k)}{\sum_{j=1}^K\pi_j \ N(x_i\vert\mu_k,\Sigma_k)}
+        r_{ik}=\frac{\pi_k \ N(x_i\vert \mu_k,\Sigma_k)}{\sum_{j=1}^K\pi_j \ N(x_i\vert\mu_j,\Sigma_j)}
     \end{align*}
    $$
   4. Iterate i to iii until convergence

@@ -1,0 +1,167 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage{ctex} % 使用ctex宏包支持中文
+\usepackage{geometry} % 页面设置
+\usepackage{amsmath, amssymb, ntheorem} % 数学公式
+\usepackage{graphicx} % 插入图片
+\usepackage{enumitem} % 列表环境
+\usepackage{hyperref} % 超链接
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 标题信息
+\title{课后练习5}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle % 显示标题
+
+\section{问题一}
+
+\subsection{}
+
+我们已知
+\begin{align*}
+    X&=\begin{pmatrix}
+        3&4\\5&6\\1&2\\4&3\\2&5
+    \end{pmatrix}\quad
+    \bar{x}=\begin{pmatrix}
+        3&4
+    \end{pmatrix}
+\end{align*}
+因此
+\begin{align*}
+    \hat{X}&=\begin{pmatrix}
+        0&0\\2&2\\-2&-2\\1&-1\\-1&1
+    \end{pmatrix}\\
+    \Sigma&=\frac{1}{n}\hat{X}^T\hat{X}=\begin{pmatrix}
+        2&1.2\\1.2&2
+    \end{pmatrix}
+\end{align*}
+对$\Sigma$进行特征值分解得到
+\begin{align*}
+    \Sigma = W^T \Lambda W \approx 
+    \begin{pmatrix}
+        -0.707&0.707\\0.707&0.707
+    \end{pmatrix}
+    \begin{pmatrix}
+        0.8&0\\0&3.2
+    \end{pmatrix}
+    \begin{pmatrix}
+        -0.707&0.707\\0.707&0.707
+    \end{pmatrix}
+\end{align*}
+投影矩阵$W$及投影后的数据为
+\begin{align*}
+    W&=\begin{pmatrix}
+        -0.707&0.707\\0.707&0.707
+    \end{pmatrix}\\
+    X'&=XW=\begin{pmatrix}
+        0.707&4.949\\0.707&7.777\\0.707&2.121\\-0.707&4.949\\-2.121&4.949
+    \end{pmatrix}
+\end{align*}
+
+\begin{figure}
+    \centering
+    \includegraphics*{img/a5_1.jpg}
+    \caption{1.1}
+\end{figure}
+
+\subsection{}
+
+保证不同维度正交，可以消除不同维度之间的相互影响，使得不同维度之间相互独立，互不影响
+
+
+\section{问题二}
+
+\subsection{}
+
+1. $\mu_1=(1,1)\quad\mu_2=(6,7)$
+
+2. $(1,1)(1,2)(2,1)(3,4)$被分配到$\mu_1$，$(6,7)(7,6)$被分配到$\mu_2$
+
+3. $\mu_1=(1.75,2)\quad\mu_2=(6.5,6.5)$
+
+4. $(1,1)(1,2)(2,1)(3,4)$被分配到$\mu_1$，$(6,7)(7,6)$被分配到$\mu_2$
+
+5. 收敛
+    
+\begin{figure}
+    \centering
+    \includegraphics*[scale=0.8]{img/a5_2.jpg}
+    \caption{2.1}
+\end{figure}
+
+\subsection{}
+
+1. $\mu_1=(1,2)\quad\mu_2=(3,4)$
+
+2. $(1,1)(1,2)(2,1)$被分配到$\mu_1$，$(3,4)(6,7)(7,6)$被分配到$\mu_2$
+
+3. $\mu_1=(1.33,1.33)\quad\mu_2=(5.33,5.67)$
+
+4. $(1,1)(1,2)(2,1)$被分配到$\mu_1$，$(3,4)(6,7)(7,6)$被分配到$\mu_2$
+
+5. 收敛
+
+\begin{figure}
+    \centering
+    \includegraphics*[scale=0.8]{img/a5_3.jpg}
+    \caption{2.2}
+\end{figure}
+
+\subsection{}
+
+初始中心点的选择会影响算法的收敛过程，使得算法陷入局部最优解而不是全局最优解，导致聚类结果的不同。
+图1的结果更优，因为$(3,4)$确实要离$(1,1)(1,2)(2,1)$这一簇更近一些
+
+
+\section{问题三}
+
+我们已知高斯混合模型中对软标签的更新过程为
+\begin{align*}
+    \gamma_{ik}=\frac{\pi_k N(x_i\vert\mu_k,\Sigma_k)}{\sum_{j=1}^K \pi_j N(x_i\vert\mu_k,\Sigma_k)}\\
+\end{align*}
+现在$\Sigma=\epsilon I$，展开正态分布
+\begin{align*}
+    \gamma_{ik}&=\frac{\pi_k \frac{1}{(2\pi^{n/2}\vert\Sigma\vert^{1/2})}
+    \exp(-\frac{1}{2}(x_i-\mu_k)^T\Sigma^{-1}(x_i-\mu_k))}
+    {\sum_{j=1}^K \pi_j \frac{1}{(2\pi^{n/2}\vert\Sigma\vert^{1/2})}
+    \exp(-\frac{1}{2}(x_i-\mu_j)^T\Sigma^{-1}(x_i-\mu_j))}\\
+    &=\frac{\pi_k\exp(-\frac{1}{2\epsilon}(x_i-\mu_k)^T(x_i-\mu_k))}
+    {\sum_{j=1}^{K}\pi_j\exp(-\frac{1}{2\epsilon}(x_i-\mu_j)^T(x_i-\mu_j))}\\
+    &=\frac{\pi_k\exp(-\frac{1}{2\epsilon}\Vert x_i-\mu_k\Vert^2)}
+    {\sum_{j=1}^{K}\pi_j\exp(-\frac{1}{2\epsilon}\Vert x_i-\mu_j\Vert^2)}\\
+\end{align*}
+当$\epsilon\rightarrow0$时，对于数据$x_i$，假设其属于第$k$类的概率最大，那么该数据点与$\mu_k$的距离会非常近
+即有$\Vert x_i-\mu_k\Vert^2\rightarrow0$，于是$\exp(-\frac{\Vert x_i-\mu_k\Vert^2}{2\epsilon})\rightarrow1$，
+对任意$j\neq k$，$\exp(-\frac{\Vert x_i-\mu_k\Vert^2}{2\epsilon})\rightarrow0$，因此
+\begin{align*}
+    \gamma_{ik}=\left\{
+        \begin{aligned}
+            1 & \quad\text{if }k=\mathop{argmin}\limits_{j=1,\dots,K}\Vert x_i-\mu_j \Vert^2\\
+            0 & \quad\text{otherwise}
+        \end{aligned}
+    \right.
+\end{align*}
+现在这与K-means的硬标签完全相同，可以证明当$\epsilon\rightarrow0$时，高斯混合模型与K-means等价
+
+\section{问题四}
+
+\subsection{}
+
+
+
+\subsection{}
+
+
+
+
+
+
+\end{document}
