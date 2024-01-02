@@ -193,7 +193,7 @@
 \end{align*}
 由于已知
 \begin{align*}
-    \lambda \sum_{k=1}^K\pi_k&=\sum_{i=1}^N\sum_{k=1}^K\gamma_{ik}=N\\
+    \lambda \sum_{k=1}^K\pi_k&=\sum_{i=1}^N\sum_{k=1}^K\gamma_k^{(i)}=N\\
     &\Rightarrow \ \ \lambda=N
 \end{align*}
 因此
@@ -206,11 +206,11 @@
     &=\sum_{i=1}^N \gamma_k^{(i)}\frac{\partial\log\bigl((p^{(k)}_d)^{x^{(i)}_d}(1-p^{(k)}_d)^{1-x^{(i)}_d}\bigr)}{\partial p^{(k)}_d}\\
     &=\sum_{i=1}^N \gamma_k^{(i)}(\frac{x_d^{(i)}}{p^{(k)}_d}-\frac{1-x_d^{(i)}}{1-p_d^{(k)}})\\
     &=\sum_{i=1}^N \gamma_k^{(i)}(x_d^{(i)}-p_d^{(k)})=0\\
-    p_d^{(k)}&=\frac{\sum_{i=1}^n\gamma_k^{(i)}x_d^{(i)}}{\sum_{i=1}^n\gamma_k^{(i)}}
+    p_d^{(k)}&=\frac{\sum_{i=1}^N\gamma_k^{(i)}x_d^{(i)}}{\sum_{i=1}^N\gamma_k^{(i)}}
 \end{align*}
 因此$p^{(k)}$为
 \begin{align*}
-    p^{(k)}&=\frac{\sum_{i=1}^n\gamma_k^{(i)}x^{(i)}}{\sum_{i=1}^n\gamma_k^{(i)}}
+    p^{(k)}&=\frac{\sum_{i=1}^N\gamma_k^{(i)}x^{(i)}}{\sum_{i=1}^N\gamma_k^{(i)}}
 \end{align*}
 
 
