@@ -138,9 +138,22 @@
     &=\frac{\pi_k\exp(-\frac{1}{2\epsilon}\Vert x_i-\mu_k\Vert^2)}
     {\sum_{j=1}^{K}\pi_j\exp(-\frac{1}{2\epsilon}\Vert x_i-\mu_j\Vert^2)}\\
 \end{align*}
-当$\epsilon\rightarrow0$时，对于数据$x_i$，假设其属于第$k$类的概率最大，那么该数据点与$\mu_k$的距离会非常近
-即有$\Vert x_i-\mu_k\Vert^2\rightarrow0$，于是$\exp(-\frac{\Vert x_i-\mu_k\Vert^2}{2\epsilon})\rightarrow1$，
-对任意$j\neq k$，$\exp(-\frac{\Vert x_i-\mu_k\Vert^2}{2\epsilon})\rightarrow0$，因此
+当$\epsilon\rightarrow0$时，对于样本点$x_i$，假设其属于第$k$类的概率最大，那么$\Vert x_i-\mu_k\Vert^2$显然要显著小于$\Vert x_i-\mu_j\Vert^2$，对任意$j\neq k$，
+即
+\begin{align*}
+    \exp(-\frac{1}{2\epsilon}\Vert x_i-\mu_k\Vert^2)>>\exp(-\frac{1}{2\epsilon}\Vert x_i-\mu_j\Vert^2)
+    \quad \forall j\neq k
+\end{align*}
+这表明在分母的求和项中第$k$项显著大于其他项，又因为
+\begin{align*}
+    \frac{\pi_j\exp(-\frac{1}{2\epsilon}\Vert x_i-\mu_j\Vert^2)}{\pi_k\exp(-\frac{1}{2\epsilon}\Vert x_i-\mu_k\Vert^2)}\left\{
+        \begin{aligned}
+            \rightarrow0 & \quad j\neq k\\
+            =1 & \quad j=k
+        \end{aligned}
+    \right.
+\end{align*}
+因此显然有
 \begin{align*}
     \gamma_{ik}=\left\{
         \begin{aligned}
