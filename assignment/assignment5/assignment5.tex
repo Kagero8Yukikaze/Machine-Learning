@@ -155,13 +155,50 @@
 
 \subsection{}
 
-
+\begin{align*}
+    \gamma_k^{(i)}&=P(z_k^{(i)}=1\vert x^{(i)},\pi,\mathbf{p})\\
+    &=\frac{P(x^{(i)}\vert z_k^{i}=1)P(z_k^{(i)}=1)}{\sum_{j=1}^KP(x^{(i)}\vert z_j^{i}=1)P(z_j^{(i)}=1)}\\
+    &=\frac{\pi_k P(x^{(i)}\vert p^{(k)})}{\sum_{j=1}^K\pi_j P(x^{(i)}\vert p^{(j)})}
+\end{align*}
 
 \subsection{}
 
-
-
-
+优化目标为
+\begin{align*}
+    \mathop{max}\limits_{\mathbf{p},\pi}\sum_{i=1}^{N}\sum_{k=1}^K \gamma_k^{(i)}(\log\pi_k+\log P(x^{(i)}\vert p^{(k)}))
+    \quad \text{s.t.} \sum_{k=1}^K\pi_k=1
+\end{align*}
+构造拉格朗日方程
+\begin{align*}
+    L(\mathbf{p},\pi,\lambda)=\sum_{i=1}^{N}\sum_{k=1}^K \gamma_k^{(i)}(\log\pi_k+\log P(x^{(i)}\vert p^{(k)}))
+    +\lambda(1-\sum_{k=1}^K\pi_k)
+\end{align*}
+计算$\pi_k$
+\begin{align*}
+    \frac{\partial L}{\partial \pi_k}&=\sum_{i=1}^N\frac{\gamma_k^{(i)}}{\pi_k}-\lambda=0\\
+    \pi_k&=\frac{\sum_{i=1}^{N}\gamma_k^{(i)}}{\lambda}\\
+\end{align*}
+由于已知
+\begin{align*}
+    \lambda \sum_{k=1}^K\pi_k&=\sum_{i=1}^N\sum_{k=1}^K\gamma_{ik}=N\\
+    &\Rightarrow \ \ \lambda=N
+\end{align*}
+因此
+\begin{align*}
+    \pi_k&=\frac{\sum_{i=1}^{N}\gamma_k^{(i)}}{N}\\
+\end{align*}
+计算$p^{(k)}$的第$d$个分量$p^{(k)}_d$
+\begin{align*}
+    \frac{\partial L}{\partial p^{(k)}_d}&=\sum_{i=1}^N \gamma_k^{(i)}\frac{\partial\log P(x^{(i)}_d\vert p^{(k)}_d)}{\partial p^{(k)}_d}\\
+    &=\sum_{i=1}^N \gamma_k^{(i)}\frac{\partial\log\bigl((p^{(k)}_d)^{x^{(i)}_d}(1-p^{(k)}_d)^{1-x^{(i)}_d}\bigr)}{\partial p^{(k)}_d}\\
+    &=\sum_{i=1}^N \gamma_k^{(i)}(\frac{x_d^{(i)}}{p^{(k)}_d}-\frac{1-x_d^{(i)}}{1-p_d^{(k)}})\\
+    &=\sum_{i=1}^N \gamma_k^{(i)}(x_d^{(i)}-p_d^{(k)})=0\\
+    p_d^{(k)}&=\frac{\sum_{i=1}^n\gamma_k^{(i)}x_d^{(i)}}{\sum_{i=1}^n\gamma_k^{(i)}}
+\end{align*}
+因此$p^{(k)}$为
+\begin{align*}
+    p^{(k)}&=\frac{\sum_{i=1}^n\gamma_k^{(i)}x^{(i)}}{\sum_{i=1}^n\gamma_k^{(i)}}
+\end{align*}
 
 
 \end{document}
