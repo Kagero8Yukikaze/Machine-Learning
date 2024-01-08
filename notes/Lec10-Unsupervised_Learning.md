@@ -49,7 +49,7 @@
         \Rightarrow \quad& \Sigma u_1=\lambda_1u_1
     \end{align*}
   $$
-  This means that $u_1$ is an **eigenvector** of $\Sigma$ corresponding to eigenvalue $\lambda_1$
+  This means that $u_1$ is an **eigenvector** of $\Sigma$ corresponding to **eigenvalue** $\lambda_1$
   $$
     \begin{align*}
         u_1^T\Sigma u_1 =\lambda_1 u_1^T u_1 = \lambda_1
@@ -166,7 +166,7 @@
    $$
     \begin{align*}
         \frac{\partial L}{\partial \mu_k}&=-\sum_{i=1}^nr_{ik}(x_i-\mu_k)=0\\
-        \Rightarrow&\quad\mu_k=\frac{\sum_{i=1}^nr_{ik}x_i}{\sum_{i=1}^nr_{ik}}
+        \Rightarrow\quad\mu_k&=\frac{\sum_{i=1}^nr_{ik}x_i}{\sum_{i=1}^nr_{ik}}
     \end{align*}
    $$
       - calculate the mean of all $x_i$ assigned to $\mu_k$

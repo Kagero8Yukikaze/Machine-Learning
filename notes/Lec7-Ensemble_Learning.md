@@ -15,7 +15,7 @@
 
 ### Bootstrap
 
-- Bootstrapping (自举) is a way that uses **random sampling with replacement**.
+- **Bootstrapping** (自举) is a way that uses **random sampling with replacement**.
   1. Sample $n$ points from $D$ with replacement
   2. Repeat i. for $T$ times, get $\hat{D}_1,\dots,\hat{D}_T$
   3. $\hat{f}(x)=\frac{1}{T}\sum_{t=1}^Tf(x,\hat{D}_t)$ as the bagged model
@@ -38,7 +38,8 @@
 
 ## Boosting
 
-- reduce bias (for linear models or tree models with certain height)
+- **reduce bias**
+- for linear models or tree models with certain height
 
 ### Additive Model
 
@@ -119,7 +120,7 @@
 - After solving $f_t$, we need to optimize
   $$
     \begin{align*}
-        &\sum_{i=1}^nw_i^{(t)}\exp\bigl(-y_i\alpha_t f_t(x_i)\bigr)\\
+        &\mathop{min}\limits_{\alpha_t}\sum_{i=1}^nw_i^{(t)}\exp\bigl(-y_i\alpha_t f_t(x_i)\bigr)\\
         \Leftrightarrow&\mathop{min}\limits_{\alpha_t}\sum_{y_i=f_t(x_i)}w_i^{(t)}\exp\bigl(-y_i\alpha_t f_t(x_i)\bigr)
         +\sum_{y_i\neq f_t(x_i)}w_i^{(t)}\exp\bigl(-y_i\alpha_t f_t(x_i)\bigr)\\
         \Leftrightarrow&\mathop{min}\limits_{\alpha_t}\sum_{y_i=f_t(x_i)}w_i^{(t)}\exp(-\alpha_t)

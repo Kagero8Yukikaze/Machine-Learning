@@ -13,7 +13,7 @@
   $$
     \begin{align*}
         X&\sim N(X\vert\mu,\Sigma)\\
-        X&\in\mathbb{R}^d \quad \mu\in\mathbb{R}^d \quad \Sigma\in\mathbb{R}^{d\times d}\quad\Sigma_{ij}=E(x_i-\mu_i)(x_j-\mu_j)=cov(x_i,x_j)\\
+        X&\in\mathbb{R}^d \quad \mu\in\mathbb{R}^d \\ \Sigma&\in\mathbb{R}^{d\times d}\quad\Sigma_{ij}=E(x_i-\mu_i)(x_j-\mu_j)=cov(x_i,x_j)\\
         p(X)&=(\frac{1}{\sqrt{2\pi}})^d \cdot \frac{1}{\vert\Sigma\vert^{\frac{1}{2}}}\cdot\exp(-\frac{1}{2}(X-\mu)^T\Sigma^{-1}(X-\mu))
     \end{align*}
   $$
@@ -52,7 +52,7 @@
 
 - $y=w^T\phi(x)+\epsilon,\quad\epsilon\sim N(0,\sigma^2)$
   - $\epsilon$ is a Gaussian noise
-- $P(y\vert x;w,\sigma^2)=N(y|w^T\phi(x),\sigma^2)$
+- $P(y\vert x;w,\sigma^2)=N(y\vert w^T\phi(x),\sigma^2)$
   - $w$ is the parameter
   - $\sigma^2$ is a hyperparameter
 - MLE form:
@@ -88,11 +88,7 @@
   $$
     \begin{align*}
         P(w\vert y,x)&=\frac{1}{z}\cdot\prod_{i=1}^n P(y_i\vert x_i,w)P(w)\\
-        &=\frac{1}{z}\cdot(\frac{1}{\sqrt{2\pi}\sigma})^n\cdot\exp(-\frac{\sum_{i=1}^n(y_i-w^T\phi(x_i))^2}{2\sigma^2})\cdot(\frac{1}{\sqrt{2\pi}\sigma_w})^d\cdot\exp(-\frac{w^Tw}{2\sigma_w^2})
-    \end{align*}
-  $$
-  $$
-    \begin{align*}
+        &=\frac{1}{z}\cdot(\frac{1}{\sqrt{2\pi}\sigma})^n\cdot\exp(-\frac{\sum_{i=1}^n(y_i-w^T\phi(x_i))^2}{2\sigma^2})\cdot(\frac{1}{\sqrt{2\pi}\sigma_w})^d\cdot\exp(-\frac{w^Tw}{2\sigma_w^2})\\
         \mathop{max}\limits_{w}P(w\vert y,x)&\Leftrightarrow\mathop{max}\limits_{w}-\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-w^T\phi(x_i))^2-\frac{1}{2\sigma_w^2}w^Tw\\
         &\Leftrightarrow \mathop{min}\limits_{w}\sum_{i=1}^n(y_i-w^T\phi(x_i))^2+\frac{\sigma^2}{\sigma_w^2}\Vert w \Vert^2
     \end{align*}

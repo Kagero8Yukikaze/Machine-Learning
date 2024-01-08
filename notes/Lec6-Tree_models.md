@@ -7,7 +7,7 @@
     - if $w^Tx+b \geq0\quad\Rightarrow\quad +1$
     - if $w^Tx+b <0\quad\Rightarrow\quad -1$
 - e.g. $y\in\{-1,+1\}$ represents a bad/good scientist
-  - $x^{(1)}=1$: hard-working
+  - $x^{(1)}=1$: is hard-working
   - $x^{(2)}=1$: has a good vision
   - $x^{(3)}=1$: likes banana
 - How to select a good feature for partition?
@@ -21,7 +21,7 @@
     \begin{align*}
         H(x)&=\sum_X p(x)\log\frac{1}{p(x)}\\
         &=-\sum_X p(x)\log p(x)\\
-        &=E_X\log\frac{1}{p(x)}
+        &=E_X[\log\frac{1}{p(x)}]
     \end{align*}
   $$
   - For an event $X=x$, the smaller $p(x)$ is, the more "information" it contains
@@ -42,7 +42,7 @@
   - $p(y_i)$ measures the observed data, is a data distribution
     $$
     \begin{align*}
-        E(x_i,y_i)&=-\sum_{y_i\in\{0,1\}}p(y_i)\log q(y_i)\\
+        H(x_i,y_i)&=-\sum_{y_i\in\{0,1\}}p(y_i)\log q(y_i)\\
         &=-\bigl[y_i\log(\sigma(w^Tx_i+b))+(1-y_i)\log(1-\sigma(w^Tx_i+b))\bigr]
     \end{align*}
     $$
@@ -50,7 +50,7 @@
 
 ### Information Gain
 
-- $g(D,A):=H(D)-H(D|A)$
+- $g(D,A):=H(D)-H(D\vert A)$
   - $D$ is training set
   - $A$ is a feature/attribute. $A\in\{a_1,\dots,a_m\}$ has $m$ discrete values.
     - If $A$ is continuous
@@ -67,30 +67,30 @@
     - $\vert C_k \vert$ is the set of training data whose $y=k$
     - $\frac{\vert C_k \vert}{\vert D \vert}$ approximates $P(y=k)$
     - $H(D)$ approximates $-\sum_{k=1}^KP(y=k)\log P(y=k)=H(y)$
-  - $H(D|A)$
+  - $H(D\vert A)$
     $$
     \begin{align*}
-        H(D|A):&=\sum_{i=1}^m\frac{\vert D_i \vert}{\vert D\vert} \cdot H(D|A=a_i)\\
+        H(D\vert A):&=\sum_{i=1}^m\frac{\vert D_i \vert}{\vert D\vert} \cdot H(D\vert A=a_i)\\
         &=\sum_{i=1}^m\frac{\vert D_i \vert}{\vert D\vert}\bigl[
             -\sum_{k=1}^K\frac{\vert D_i \bigcap C_k\vert}{\vert D_i\vert}\log\frac{\vert D_i \bigcap C_k\vert}{\vert D_i\vert}
         \bigr]
     \end{align*}
     $$
     - $D_i$ is the set of training data whose feature $A=a_i$
-    - $\frac{\vert D_i \bigcap C_k\vert}{\vert D_i\vert}$ approximates $P(y=k|A=a_i)$
+    - $\frac{\vert D_i \bigcap C_k\vert}{\vert D_i\vert}$ approximates $P(y=k\vert A=a_i)$
       $$
         \begin{align*}
-            H(D|A=a_i)&\approx-\sum_{k=1}^KP(y=k|A=a_i)\log P(y=k|A=a_i)\\
-            &=H(y|A=a_i)
+            H(D\vert A=a_i)&\approx-\sum_{k=1}^KP(y=k\vert A=a_i)\log P(y=k\vert A=a_i)\\
+            &=H(y\vert A=a_i)
         \end{align*}
       $$
-  - $H(D|A)\searrow\quad\Rightarrow\quad g(D,A)\nearrow\quad\Rightarrow\quad\text{Purity}\nearrow$
+  - $H(D\vert A)\searrow\quad\Rightarrow\quad g(D,A)\nearrow\quad\Rightarrow\quad\text{Purity}\nearrow$
     - Select $A$ that maximizes $g(D,A)$
-- e.g. Suppose 2 features $A$, $B$, $A$ has 2 discrete values with same probability and $B$ has 10 discrete values with same probability. Class $y\in\{1,\dots,10\}$ is pure in each $B=b_i$, that is, $P(y=i|B=b_i)=1$.  
-  $P(y=i|A=a_1)=\frac{1}{5}, \forall i=1,\dots,5$  
-  $P(y=i|A=a_2)=\frac{1}{5}, \forall i=6,\dots,10$
+- e.g. Suppose 2 features $A$, $B$, $A$ has 2 discrete values with same probability and $B$ has 10 discrete values with same probability. Class $y\in\{1,\dots,10\}$ is pure in each $B=b_i$, that is, $P(y=i\vert B=b_i)=1$.  
+  $P(y=i\vert A=a_1)=\frac{1}{5}, \forall i=1,\dots,5$  
+  $P(y=i\vert A=a_2)=\frac{1}{5}, \forall i=6,\dots,10$
   - $H(D)=\log 10$
-  - $H(D|A)=\log 5 \quad H(D|B)=0$
+  - $H(D\vert A)=\log 5 \quad H(D\vert B)=0$
   - $g(D,A)=1\quad g(D,B)=\log 10$
   - $B$ has better purity but may have lower generalization ability.
 
@@ -120,9 +120,9 @@
     \end{align*}
   $$
   - approximates $\sum_{k=1}^KP(y=k)\bigl(1-P(y=k)\bigr)$
-- $\text{Gini}(D|A)$
+- $\text{Gini}(D,A)$
   $$
-    \text{Gini}(D|A):=\sum_{i=1}^m\frac{\vert D_i\vert}{\vert D\vert}\text{Gini}(D_i)
+    \text{Gini}(D,A):=\sum_{i=1}^m\frac{\vert D_i\vert}{\vert D\vert}\text{Gini}(D_i)
   $$
 - $\arg\min\limits_{A}\text{Gini}(D,A)$
 - don't need to normalize

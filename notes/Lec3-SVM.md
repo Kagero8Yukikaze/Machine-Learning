@@ -24,7 +24,7 @@
   - then $L(x,\lambda) = f(x)+\sum_{i=1}^K \lambda_i h_i(x) $
 - now we can say that:
   $$
-  x^* \ is \ a \ local \ minimum \Rightarrow \exist \lambda \left\{
+  x^* \text{ is a local minimum} \Rightarrow \exist \lambda \left\{
       \begin{array}{ll}
           \nabla_x L(x^*,\lambda) = 0 & (1)\\
           \nabla_{\lambda}L(x^*,\lambda) = 0 & (2)
@@ -51,8 +51,8 @@
       \exist \mu \geq 0, \ \ s.t. \ \nabla f(x^*)+\mu \nabla g(x^*)=0
       \left\{
         \begin{array}{ll}
-          \mu = 0 & inactive\\
-          \mu > 0 & active
+          \mu = 0 & \text{inactive}\\
+          \mu > 0 & \text{active}
         \end{array}
       \right.
       $$
@@ -63,7 +63,7 @@
 - $L(x,\lambda,\mu) = f(x)+\sum_{i=1}^K \lambda_i h_i(x) + \sum_{j=1}^L \mu_j g_j(x)$
 - **K.K.T conditions**:
   $$
-    x^* \ is \ a \ local \ minimum \Rightarrow \left\{
+    x^* \text{ is a local minimum} \Rightarrow \left\{
         \begin{array}{ll}
             \nabla_x L(x^*,\lambda,\mu)=0 & \\
             h_i(x^*)=0 & \forall i \\
@@ -95,37 +95,33 @@
   $$
   - 我们可以发现，$w^Tx+b=0$是一个超平面，而$kw^Tx+kb=0, \ \forall k$都是同一个超平面，那么这样的话$y_0(w^Tx_0+b)$就可以是任意值(which is called **functional margin**)，所以我们可以干脆令$y_0(w^Tx_0+b)=1$，背后的逻辑是不管真实的$\gamma$是多少，我都可以找到一个k使上式等于1(同理，不管上式等于多少，我们也总能找到相应的$w$使得几何距离不变)，而且显然这个等式也是不影响$\gamma$的
 - then we can say that:
-
-$$
-    \mathop{max}\limits_{w,b}\frac{1}{||w||} \quad s.t. \ \  y_i(w^Tx_i+b) \geq 1, \quad \forall i
-$$
-
+  $$
+      \mathop{max}\limits_{w,b}\frac{1}{||w||} \quad s.t. \ \  y_i(w^Tx_i+b) \geq 1, \quad \forall i
+  $$d
 - now we have the **primal form** of SVM:
-
-$$
-    \mathop{min}\limits_{w,b}\frac{1}{2}w^Tw \quad s.t. \ \  y_i(w^Tx_i+b) \geq 1, \quad \forall i
-$$
-
+  $$
+      \mathop{min}\limits_{w,b}\frac{1}{2}w^Tw \quad s.t. \ \  y_i(w^Tx_i+b) \geq 1, \quad \forall i
+  $$
 - 我们管$x_0$这样的用来确定超平面的向量叫做**支持向量**(**support vector**)，由此我们即可以看出支持向量机的命名缘由：这些向量支撑了超平面的选择，我们只需考虑这些支持向量，而不用管别的向量，就可以确定最终的超平面
 
 - Convex Quadratic Programming
   - 这个函数是凸的，所以总能找到一个最优解，调包即可
   - Standard package: $O(d^3)$
 
-## Dual Form
+## Dual Form of SVM
 
 - 2 problems for SVM:
   - may be not linearly separable
   - margin $\gamma$ may be too small (there may be some outlier samples)
 - 我们可以改写primal form，把条件写进函数中：
   $$
-    L(w,b,\alpha) = \frac{1}{2}||w||^2 + \sum_{i=1}^n \alpha_i(1-y_i(w^T x_i+b)) \quad (\alpha_i \geq 0)  \\
+    L(w,b,\alpha) = \frac{1}{2}||w||^2 + \sum_{i=1}^n \alpha_i\bigl(1-y_i(w^T x_i+b)\bigr) \quad (\alpha_i \geq 0)  \\
     p^* = \mathop{min}\limits_{w,b} \mathop{max}\limits_{\alpha \geq 0} L(w,b,\alpha) \quad \text{(primal form of SVM)}
   $$
-  - if $1-y_i(w^T x_i+b) > 0$, then $\alpha \rightarrow \infty$ and $L \rightarrow \infty$
-    - if $p^*$ exists, $1-y_i(w^T x_i+b) \leq 0$
-  - if $1-y_i(w^T x_i+b) < 0$, then $\alpha = 0$
-  - if $1-y_i(w^T x_i+b) = 0$, then $\alpha_i(1-y_i(w^T x_i+b)) = 0$
+  - if $1-y_i(w^T x_i+b) > 0$, then $\alpha\rightarrow\infty$ and $L\rightarrow\infty$
+  - if $p^*$ exists, $1-y_i(w^T x_i+b) \leq 0$
+    - if $1-y_i(w^T x_i+b) < 0$, then $\alpha = 0$
+    - if $1-y_i(w^T x_i+b) = 0$, then $\alpha_i(1-y_i(w^T x_i+b)) = 0$
   - this is part of **K.K.T conditions**!
 - **Dual form of SVM**
   $$
@@ -135,19 +131,17 @@ $$
 ### Weak Duality
 
 - $d^* \leq p^*$
-
-$$
-   d^* = \mathop{max}\limits_{\alpha \geq 0} \mathop{min}\limits_{w,b} L(w,b,\alpha) \leq \mathop{max}\limits_{\alpha \geq 0} L(w,b,\alpha) \quad \forall w,b \\
-   d^* \leq \mathop{min}\limits_{w,b} \mathop{max}\limits_{\alpha \geq 0} L(w,b,\alpha) = p^*
-$$
-
+  $$
+    d^* = \mathop{max}\limits_{\alpha \geq 0} \mathop{min}\limits_{w,b} L(w,b,\alpha) \leq \mathop{max}\limits_{\alpha \geq 0} L(w,b,\alpha) \quad \forall w,b \\
+    d^* \leq \mathop{min}\limits_{w,b} \mathop{max}\limits_{\alpha \geq 0} L(w,b,\alpha) = p^*
+  $$
 - $p^*-d^*$ is called **duality gap**
 
 ### Strong Duality
 
 - $d^* = p^*$
 - without duality gap!
-- Slator's Condition
+- **Slator's Condition**
   - when objective is **convex** and constraints are **linear**, then $d^* = p^*$
   - our function just fits these conditions!
 - So now we can solve the dual problem to solve the primal problem
@@ -163,42 +157,41 @@ $$
 - 我们首先来看函数的内层$\mathop{min}\limits_{w,b}L(w,b,\alpha)$
   - 由于$L$是凸函数，所以我们可以通过找导函数的零点来求最小值
     $$
-    \frac{\partial L}{\partial w}= w - \sum_{i=1}^n \alpha_i y_ix_i = 0 \\
-    \frac{\partial L}{\partial b}= - \sum_{i=1}^n \alpha_i y_i = 0
+    \begin{align*}
+    \frac{\partial L}{\partial w}&= w - \sum_{i=1}^n \alpha_i y_ix_i = 0 \\
+    \frac{\partial L}{\partial b}&= - \sum_{i=1}^n \alpha_i y_i = 0
+    \end{align*}
     $$
   - 所以我们有：
     $$
-    w = \sum_{i=1}^n \alpha_i y_i x_i = 0\\
+    w = \sum_{i=1}^n \alpha_i y_i x_i\\
     \sum_{i=1}^n \alpha_i y_i = 0
     $$
   - 可以发现这其实也是K.K.T conditions中的$\nabla_{w,b} L(w,b,\alpha)=0$
-
 - Substitute $w$ into $L$:
-
-$$
-  L(w,b,\alpha)=\frac{1}{2}(\sum_{i=1}^n \alpha_i y_i x_i)^T(\sum_{j=1}^n \alpha_j y_j x_j) + \sum_{i=1}^n \alpha_i - \sum_{i=1}^n \alpha_i y_i x_i^T(\sum_{j=1}^n \alpha_j y_j x_j)\\
-  = \sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i^T x_j
-$$
-
+  $$
+    \begin{align*}
+      L(w,b,\alpha)&=\frac{1}{2}(\sum_{i=1}^n \alpha_i y_i x_i)^T(\sum_{j=1}^n \alpha_j y_j x_j) + \sum_{i=1}^n \alpha_i - \sum_{i=1}^n \alpha_i y_i x_i^T(\sum_{j=1}^n \alpha_j y_j x_j)\\
+      &= \sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i^T x_j
+    \end{align*}
+  $$
 - now we need to solve the **dual problem of SVM**:
-
-$$
-  max \sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i^T x_j  \\
-  s.t. \quad  \alpha_i \geq 0 \quad \forall i, \quad \sum_{i=1}^n \alpha_i y_i = 0
-$$
-
+  $$
+    max \sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i^T x_j  \\
+    s.t. \quad  \alpha_i \geq 0 \quad \forall i, \quad \sum_{i=1}^n \alpha_i y_i = 0
+  $$
 - **SMO**(Sequential Minimal Optimization)
   - every time select $\alpha_i,\alpha_j$, fix remaining $n-2$ variables
   - $\alpha_i y_i + \alpha_j y_j = -\sum_{k \ne i,j}\alpha_k y_k$ represent $\alpha_j$ with $\alpha_i$ and solve problem w.r.t $\alpha_i$
   - iterate until convergence
 - When we have solution $\alpha^*$ for $d^*$, how to get $w^*,b^*$:
-
-$$
-  w^* = \sum\alpha_i y_i x_i  \\
-  b^* = \frac{1}{y_i}-{w^*}^Tx_i  \\
-  (x_i,y_i)\text{ is a support vector}
-$$
-
+  $$
+    \begin{align*}
+      w^* &= \sum\alpha_i y_i x_i  \\
+      b^* &= \frac{1}{y_i}-{w^*}^Tx_i  \\
+      (x_i,y_i)&\text{ is a support vector}
+    \end{align*}
+  $$
 - How to find a support vector:
   - recall: $\left\{
         \begin{array}{ll}
@@ -225,7 +218,7 @@ $$
 - Define similarity between 2 points $X,Z$
   - **Linear Kernel** $K(X,Z) = X^TZ$
   - **Polynomial Kernel** $K(X,Z) = (X^TZ+1)^P$
-  - **Gaussian / RBF(Radial Basis Function) Kernel** $K(X,Z) = exp(-\frac{||X-Z||^2}{2\sigma^2})$
+  - **Gaussian / RBF(Radial Basis Function) Kernel** $K(X,Z) = \exp(-\frac{\Vert X-Z\Vert^2}{2\sigma^2})$
 - e.g.  $\Phi : \mathbb{R}^d \rightarrow \mathbb{R}^{d'}$
   - $\Phi(X)$ maps $X$ to higher dimension
   - $X=(X_1,X_2)^T \in \mathbb{R}^2 \rightarrow \Phi(X) = (1,X_1,X_2,X_1^2,X_2^2,X_1X_2) \in \mathbb{R}^6 $
@@ -238,17 +231,17 @@ $$
 $(X^TZ+1)^2 = (X_1X_2+Z_1Z_2+1)^2 = (1,\sqrt{2}X_1,\sqrt{2}X_2,X_1^2,X_2^2,\sqrt{2}X_1X_2)^T(1,\sqrt{2}X_1,\sqrt{2}X_2,X_1^2,X_2^2,\sqrt{2}X_1X_2)$
 - Gaussian Kernel
   $$
-    K(X,Z) = exp(-\frac{||X||^2}{2\sigma^2})exp(-\frac{||Z||^2}{2\sigma^2})exp(-\frac{X^TZ}{\sigma^2})
+    K(X,Z) = \exp(-\frac{||X||^2}{2\sigma^2})\exp(-\frac{||Z||^2}{2\sigma^2})\exp(-\frac{X^TZ}{\sigma^2})
   $$  
   and we know that:
   $$
-    exp(-\frac{X^TZ}{\sigma^2}) = 1 + \frac{X^TZ}{\sigma^2} + \frac{1}{2!}(\frac{X^TZ}{\sigma^2})^2 + \frac{1}{3!}(\frac{X^TZ}{\sigma^2})^3 + \dots \\
+    \exp(-\frac{X^TZ}{\sigma^2}) = 1 + \frac{X^TZ}{\sigma^2} + \frac{1}{2!}(\frac{X^TZ}{\sigma^2})^2 + \frac{1}{3!}(\frac{X^TZ}{\sigma^2})^3 + \dots \\
     = \sum_{p=0}^{\infty} \frac{1}{p!}(\frac{X^TZ}{\sigma^2})^p
   $$
   - union of polynomial kernels from $p=0$ to $\infty$
   - implicitly map data to infinite-dimension space and do inner product
   - 这里的$\sigma$可以自行控制，当$\sigma$大时，泰勒多项式会很快趋近于0，即此时映射成的向量维数不会很高；而当$\sigma$小时，则能够泰勒展开较多的项，此时就会映射成一个较高维的向量. 可以说，$\sigma$控制了映射维数的大小
-  - $\sigma \rightarrow 0$时，$K(X,Z)\rightarrow 0$，此时类似$1-NN$，只有与$X$最近的点才会起作用
+  - $\sigma \rightarrow 0$时，$K(X,Z)\rightarrow 0$，此时类似1-NN，只有与$X$最近的点才会起作用
 - $d^* $与$ p^*$：
   - $ p^* $计算$w,b$共$d+1$维，其对偶形式$ d^* $则计算$\alpha$共$n$维，一般来说$n$是很大的，但我们依然选择去用$ d^* $计算，主要是考虑到了高斯核函数，根据上述的泰勒展开，我们可以发现理论上这个核函数可以把原始向量映射到一个**无穷维的空间**中，那么显然此时$w,b$也可以无限大，再用$ p^* $来计算就不那么划算了
 
@@ -275,16 +268,15 @@ $(X^TZ+1)^2 = (X_1X_2+Z_1Z_2+1)^2 = (1,\sqrt{2}X_1,\sqrt{2}X_2,X_1^2,X_2^2,\sqrt
   - $c \rightarrow \infty \Rightarrow \xi_i=0 \Rightarrow \text{hard margin}$
   - 要特别注意的是，任何一个**在软间隔内部**的点也是支持向量，也就是说，软间隔是由那些分错的点+分对但在间隔内部+在间隔上的点组成的
 
-### Dual Form
+### Dual Form of soft SVM
 
-- Dual Form of soft-margin SVM
+- Dual Form
   $$
   \begin{align*}
     &\mathop{max}\limits_{\alpha, \beta \geq 0} \mathop{min}\limits_{w,b,\xi} L(w,b,\xi,\alpha,\beta)\\
     &=\frac{1}{2}||w||^2+c\sum_{i=1}^n\xi_i+\sum_{i=1}^n\alpha_i(1-\xi_i-y_i(w^Tx_i+b))-\sum_{i=1}^n\beta_i \xi_i
   \end{align*}
   $$
-
 - Partial derivatives
   $$
   \begin{align*}
@@ -294,10 +286,9 @@ $(X^TZ+1)^2 = (X_1X_2+Z_1Z_2+1)^2 = (1,\sqrt{2}X_1,\sqrt{2}X_2,X_1^2,X_2^2,\sqrt
     &\text{整理可得}\\
     &\mathop{max} \frac{1}{2}(\sum_{i=1}^n \alpha_i y_i x_i)^T(\sum_{j=1}^n \alpha_j y_j x_j) + \sum_{i=1}^n \alpha_i - \sum_{i=1}^n \alpha_i y_i x_i^T(\sum_{j=1}^n \alpha_j y_j x_j)\\
     = &\mathop{max}\sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i^T x_j\\
-    &s.t. \quad 0\leq \alpha_i \leq c, \quad \sum_{i=1}^n \alpha_i y_i=0
+    &s.t. \quad 0\leq\alpha_i\leq c\quad\forall i,\quad\sum_{i=1}^n \alpha_i y_i=0
   \end{align*}
   $$
-
   - $c\rightarrow \infty \Rightarrow \text{hard margin}$
-  - $c$ is small $\Rightarrow$ no individual point dominates the prediction(hyperplane) and is robust to outlier
+  - $c$ is small $\Rightarrow$ no individual point dominates the prediction(hyperplane) and is **robust** to outlier
   - $c$ controls the **strength of regularization**

@@ -9,25 +9,22 @@
   - Ridge (Linear) Regression
     $$
     \begin{align*}
-      \mathop{min}\limits_{w}\sum_{i=1}^n(w^T\Phi(x_i)-y_i)^2+\lambda||w||^2
+      \mathop{min}\limits_{w}\sum_{i=1}^n(w^T\Phi(x_i)-y_i)^2+\lambda\Vert w\Vert^2
     \end{align*}
     $$
-
   - Ridge (Logistic) Regression
     $$
     \begin{align*}
-      \mathop{min}\limits_{w}\sum_{i=1}^n\log(1+\exp(-y_iw^T\Phi(x_i)))+\lambda||w||^2
+      \mathop{min}\limits_{w}\sum_{i=1}^n\log(1+\exp(-y_iw^T\Phi(x_i)))+\lambda\Vert w\Vert^2
     \end{align*}
     $$
-
   - Soft-margin SVM
     $$
     \begin{align*}
       &\mathop{min}\limits_{w}\frac{1}{2}||w||^2+c\sum_{i=1}^n\max\{0,1-y_iw^T\Phi(x_i)\}\\
-      =&\mathop{min}\limits_{w}\sum_{i=1}^n\max\{0,1-y_iw^T\Phi(x_i)\}+\lambda||w||^2
+      =&\mathop{min}\limits_{w}\sum_{i=1}^n\max\{0,1-y_iw^T\Phi(x_i)\}+\lambda\Vert w\Vert^2
     \end{align*}
     $$
-
 - 更进一步，我们可以把这种统一的格式改写成一致的核函数的形式
   - Linear Regression
     $$
@@ -37,7 +34,6 @@
         \Rightarrow &f(x)=\sum_{i=1}^n\alpha_i\Phi^T(x_i)\Phi(x):=\sum_{i=1}^n\alpha_i K(x_i,x)
     \end{align*}
     $$
-
   - Logistic Regression
     $$
     \begin{align*}
@@ -70,9 +66,9 @@
 - Vector Space(Euclidean Space $\mathbb{R}^d$) $\rightarrow$ possibly infinite dimensional Hilbert space $\mathcal{H}$(vector space inner product)
   - function $f \in \mathcal{H}$ can be understood as infinite dimensional vector $[f(x_1),\dots,f(x_{\infty})]$
 - 该空间满足以下性质:
-  - $<f,g>_{\mathcal{H}}=<g,f>_{\mathcal{H}} $
-  - $<a_1f_1+a_2f_2,g>_{\mathcal{H}}=a_1<f_1,g>_{\mathcal{H}}+a_2<f_2,g>_{\mathcal{H}} $
-  - $<f,f>_{\mathcal{H}} \geq 0, \quad <f,f>_{\mathcal{H}}=0 \Leftrightarrow f=0$
+  - **对称性** $<f,g>_{\mathcal{H}}=<g,f>_{\mathcal{H}} $
+  - **线性性** $<a_1f_1+a_2f_2,g>_{\mathcal{H}}=a_1<f_1,g>_{\mathcal{H}}+a_2<f_2,g>_{\mathcal{H}} $
+  - **正定性** $<f,f>_{\mathcal{H}} \geq 0, \quad <f,f>_{\mathcal{H}}=0 \Leftrightarrow f=0$
 - _RKHS_
   - $f \in \mathcal{H}$, $\mathcal{H}$ is a Hilbert space of real-valued functions $f:X\rightarrow \mathbb{R}$
   - $\mathcal{H}$ is associated with a kernel $k(\cdot,\cdot), \quad s.t. \ \  f(x)=<f,k(\cdot,\cdot)>_{\mathcal{H}} $
@@ -115,10 +111,10 @@
 
 ## Formal Form
 
-- Consider a RKHS $\mathcal{H}$ with representing kernel $k: X \times X \rightarrow \mathbb{R}$. Given training data $\{(x_1,y_1),\dots, (x_n,y_n)\}\in X \times \mathbb{R}$, a strictly increasing regularization function $R:[0,+\infty)\rightarrow \mathbb{R}$ and a loss function $L:\mathbb{R}\times\mathbb{R}\rightarrow\mathbb{R}$, then any $f\in\mathcal{H}$ that minimizes $\sum_{i=1}^n L(f(x_i),y_i)+R(\| f\|)$ can be presented as $f=\sum_{i=1}^n\alpha_i k(x_i,\cdot)$
+- Consider a RKHS $\mathcal{H}$ with representing kernel $k: X \times X \rightarrow \mathbb{R}$. Given training data $\{(x_1,y_1),\dots, (x_n,y_n)\}\in X \times \mathbb{R}$, a _strictly increasing_ regularization function $R:[0,+\infty)\rightarrow \mathbb{R}$ and a loss function $L:\mathbb{R}\times\mathbb{R}\rightarrow\mathbb{R}$, then any $f\in\mathcal{H}$ that minimizes $\sum_{i=1}^n L(f(x_i),y_i)+R(\| f\|)$ can be presented as $f=\sum_{i=1}^n\alpha_i k(x_i,\cdot)$
   - _Proof:_  
     Decompose $f$ into two functions, one lying in span $\{k(x_1,\cdot),\dots,k(x_n,)\}$, the other component orthogonal to it.  
-    $f=\sum_{i=1}^n\alpha_ik(x_i,\cdot)+\mu \ \ \ \text{s.t.} \ <\mu,k(x_i,\cdot)>=0$  
+    $f=\sum_{i=1}^n\alpha_ik(x_i,\cdot)+\mu \quad \text{s.t.} \ <\mu,k(x_i,\cdot)>=0$  
     Applying $f$ to any training example $x_j$, we have
   $$
   \begin{align*}
@@ -132,12 +128,11 @@
     R(\|f\|)&=R(\|\sum_{i=1}^n\alpha_ik(x_i,\cdot)+\mu\|)\\
     \|f_0+\mu\|&=\sqrt{<f_0+\mu,f_0+\mu>_{\mathcal{H}}}\\
     &=\sqrt{<f_0,f_0>_{\mathcal{H}}+2<f_0,\mu>_{\mathcal{H}}+<\mu,\mu>_{\mathcal{H}}}\\
-    &=\sqrt{\|f_0\|^2+\|\mu\|^2}\\_{i=1}^n
+    &=\sqrt{\|f_0\|^2+\|\mu\|^2}\\
     R(\|f\|)&=R(\sqrt{\|f_0\|^2+\|\mu\|^2})\geq R(\|f_0\|) \quad \text{取等当且仅当}\mu=0
   \end{align*}
   $$
     Regularization minimizes at $\mu=0 \Rightarrow f=\sum_{i=1}^n\alpha_ik(x_i,\cdot)$
-
 - Significance
   - Turns a potentially infinite dimension optimization  of $f$ into a search of $\alpha_1,\dots,\alpha_n$
   - Shows that a wide range of learning algorithms have solutions expressed as **weight sum of kernel functions** on finite training data $f=\sum_{i=1}^n\alpha_ik(x_i,\cdot)$

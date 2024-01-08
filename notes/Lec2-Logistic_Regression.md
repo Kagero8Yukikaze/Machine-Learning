@@ -22,15 +22,15 @@
   = \mathop{max}\limits_{w,b}& \prod_{i=1}^n (\sigma(w^T x_i + b))^{y_i} (1 - \sigma(w^T x_i + b))^{1 - y_i}
   \end{align*}
   $$
-- 但是连乘会导致数字变得非常小(因为都小于1)，所以我们可以使用log:
+- 但是连乘会导致数字变得非常小(因为都小于1)，所以我们可以使用$\log$:
   $$
-  \mathop{max}\limits_{w,b} \sum_{i=1}^n [y_i log(\sigma(w^T x + b)) + (1 - y_i)log(1 - \sigma(w^T x +b))]
+  \mathop{max}\limits_{w,b} \sum_{i=1}^n [y_i \log(\sigma(w^T x + b)) + (1 - y_i)\log(1 - \sigma(w^T x +b))]
   $$
 - so now we have our **loss function** for Logistic Regression:
   $$
-  \mathop{min}\limits_{w,b} -\sum_{i=1}^n [y_i log(\sigma(w^T x + b)) + (1 - y_i)log(1 - \sigma(w^T x +b))]
+  \mathop{min}\limits_{w,b} -\sum_{i=1}^n [y_i\log(\sigma(w^T x + b)) + (1 - y_i)\log(1 - \sigma(w^T x +b))]
   $$
-  - negative log likelihood = cross entropy loss (交叉熵)
+  - negative log likelihood = **cross entropy loss (交叉熵)**
 
 ## Optimization
 
@@ -43,14 +43,13 @@ $\hat{W} = \begin{bmatrix}
     w \\
     b
 \end{bmatrix} \in \mathbb{R}^{d+1}$
-
 - Cross Entropy Loss ($L(\hat{W})$):
   $$
   \begin{align*}
-    L(\hat{W}) &= -\sum_{i=1}^n [y_i log \frac{1}{1+e^{-\hat{W}^T \hat{X_i}}} + (1 - y_i)log(1 - \frac{1}{1+e^{-\hat{W}^T \hat{X_i}}})] \\
-  &= -\sum_{i=1}^n [-y_i log(1+e^{-\hat{W}^T \hat{X_i}}) + y_i log(1+e^{\hat{W}^T \hat{X_i}}) - log (1+e^{\hat{W}^T \hat{X_i}})] \\
-  &= -\sum_{i=1}^n[y_i log e^{\hat{W}^T \hat{X_i}} - log (1+e^{\hat{W}^T \hat{X_i}})] \\
-  &= -\sum_{i=1}^n[y_i \hat{W}^T \hat{X_i} - log (1+e^{\hat{W}^T \hat{X_i}})]
+    L(\hat{W}) &= -\sum_{i=1}^n [y_i\log \frac{1}{1+e^{-\hat{W}^T \hat{X_i}}} + (1 - y_i)\log(1 - \frac{1}{1+e^{-\hat{W}^T \hat{X_i}}})] \\
+  &= -\sum_{i=1}^n [-y_i\log(1+e^{-\hat{W}^T \hat{X_i}}) + y_i \log(1+e^{\hat{W}^T \hat{X_i}}) -\log(1+e^{\hat{W}^T \hat{X_i}})] \\
+  &= -\sum_{i=1}^n[y_i\log e^{\hat{W}^T \hat{X_i}} -\log(1+e^{\hat{W}^T \hat{X_i}})] \\
+  &= -\sum_{i=1}^n[y_i \hat{W}^T \hat{X_i} -\log(1+e^{\hat{W}^T \hat{X_i}})]
   \end{align*}
   $$
 - 求梯度:
@@ -61,7 +60,7 @@ $\hat{W} = \begin{bmatrix}
   \end{align*}
   $$
   - when $y_i = P(y=1|x_i), \forall i$, then $\frac{\partial L(\hat{W})}{\partial \hat{W}} = 0$
-    - 这时模型完全能够反映正确的分类，说明此时所有的样本是线性可分(_linearly separable_)的，即可以被模型这个超平面(_hyperplane_)恰好一分为二；但是很显然更多的情况是样本线性不可分，但我们可以保证一定能找到一个全局最优解
+    - 这时模型完全能够反映正确的分类，说明此时所有的样本是**线性可分**(**linearly separable**)的，即可以被模型这个**分割超平面**(**hyperplane**)恰好一分为二；但是很显然更多的情况是样本线性不可分，但我们可以保证一定能找到一个全局最优解
 
 - 求Heissan矩阵:
   $$
@@ -75,12 +74,12 @@ $\hat{W} = \begin{bmatrix}
 ## 标签为{-1,1}的逻辑回归
 
 - $P(y_i=1|x_i) = \sigma(w^T x_i + b)$
-  - $loss(x_i,y_i) = -log \sigma(w^Tx_i+b) = log(1+e^{-y_i(w^Tx_i+b)}) $
+  - $\text{loss}(x_i,y_i) = -\log\sigma(w^Tx_i+b) =\log(1+e^{-y_i(w^Tx_i+b)}) $
 - $P(y_i=-1|x_i) = \frac{1}{1+e^{w^Tx_i+b}} $
-  - $loss(x_i,y_i) = log(1+e^{-y_i(w^Tx_i+b)}) $
+  - $\text{loss}(x_i,y_i) =\log(1+e^{-y_i(w^Tx_i+b)}) $
 - 我们发现，无论$y_i$取-1还是1，损失函数的表达方式是相同的:
   $$
-  L(w,b) = \sum_{i=1}^n log(1+e^{-y_i(w^Tx_i+b)})
+  L(w,b) = \sum_{i=1}^n\log(1+e^{-y_i(w^Tx_i+b)})
   $$
 - 梯度下降为:
   $$
@@ -92,14 +91,14 @@ $\hat{W} = \begin{bmatrix}
   $$
     z_i  \left\{
   \begin{aligned}
-  \>>0 & & sign(y_i) = sign(w^Tx_i+b) \\
-  <0 & & sign(y_i) = - sign(w^Tx_i+b) \\
+  \>>0 & & \text{sign}(y_i) = \text{sign}(w^Tx_i+b) \\
+  <0 & & \text{sign}(y_i) = -\text{sign}(w^Tx_i+b) \\
   \end{aligned}
   \right.
   $$
-  - 可以发现$log(1+e^{z_i})$是一个平滑的单调递减函数，性质很好
-  - $\sum_{i=1}^n loss(z_i)$ is the _number_ of training point that wrongly classified
-  - $\frac{1}{n}  \sum_{i=1}^n loss(z_i)$ is the _error rate_
+  - 可以发现$\log(1+e^{z_i})$是一个平滑的单调递减函数，性质很好
+  - $\sum_{i=1}^n \text{loss}(z_i)$ is the _number_ of training point that wrongly classified
+  - $\frac{1}{n}  \sum_{i=1}^n\text{loss}(z_i)$ is the _error rate_
 
 - 0/1 loss function:
   $$
@@ -121,7 +120,7 @@ $\hat{W} = \begin{bmatrix}
 - $y \in \{1,2,\dots,K\}$, $x \in \mathbb{R}^d$
 - **Softmax Regression**
   - 虽然叫回归，但解决的是分类问题
-  - Define K linear models $f_k(x) = w_k^Tx + b_k, \ k \in \{1,\dots,K\}$
+  - Define $K$ linear models $f_k(x) = w_k^Tx + b_k, \ k \in \{1,\dots,K\}$
   - Given $(x_i,y_i)$, find $f_k(x_i) > f_j(x_i), \  \forall j \neq k$, then predict $y_i = k$
 - **MLE**
   - $P(y=k|x) = \frac{e^{f_k(x)}}{\sum_{j=1}^K e^{f_j(x)}}$
@@ -133,8 +132,8 @@ $\hat{W} = \begin{bmatrix}
   $$
   \begin{align*}
     Loss
-    &= \mathop{min}\limits_{ \{(w_j,b_j)|j=1,\dots,K\} } -\sum_{i=1}^n logP(y=y_i|x=x_i)\\
-    &= -\sum_{i=1}^n log \frac{e^{w^T_{y_i}x_i+b_{y_i}}}{\sum_{j=1}^K e^{w_j^T x_i + b_j}}
+    &= \mathop{min}\limits_{ \{(w_j,b_j)|j=1,\dots,K\} } -\sum_{i=1}^n\log P(y=y_i|x=x_i)\\
+    &= -\sum_{i=1}^n\log\frac{e^{w^T_{y_i}x_i+b_{y_i}}}{\sum_{j=1}^K e^{w_j^T x_i + b_j}}
   \end{align*}
   $$
 - Relation between _Logistic Regression_ and _Softmax Regression_ with $K=2$

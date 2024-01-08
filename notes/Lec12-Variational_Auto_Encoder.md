@@ -39,7 +39,7 @@
   $$
   \begin{align*}
     \log P(x;\theta)&=\int_z q(z\vert x;\theta')\log\frac{P(x,z;\theta)}{q(z\vert x;\theta')}dz-\int_z q(z\vert x;\theta')\log\frac{P(z\vert x;\theta)}{q(z\vert x;\theta')}dz\\
-    &=\int_z q(z\vert x;\theta')\log\frac{P(x,z;\theta)}{q(z\vert x;\theta')}dz-\text{KL}\bigl(q(z\vert x;\theta')\Vert P(z\vert x;\theta) \bigr)
+    &=\int_z q(z\vert x;\theta')\log\frac{P(x,z;\theta)}{q(z\vert x;\theta')}dz+\text{KL}\bigl(q(z\vert x;\theta')\Vert P(z\vert x;\theta) \bigr)
   \end{align*}
   $$
 - **VAE ignores KL and only maximize ELBO!**
@@ -70,7 +70,7 @@
 - VAE loss:
   $$
     \begin{align*}
-        \mathop{min}\limits_{\theta,\theta'}\frac{1}{n}\sum_{i=1}^n[\Vert x_i-x_i'\Vert^2+\beta\text{KL}\bigl(q(z\vert x_i;\theta')\Vert P(z) \bigr)]
+        \mathop{min}\limits_{\theta,\theta'}\frac{1}{n}\sum_{i=1}^n\bigl[\Vert x_i-x_i'\Vert^2+\beta\text{KL}\bigl(q(z\vert x_i;\theta')\Vert P(z) \bigr)\bigr]
     \end{align*}
   $$
   - $\beta\rightarrow 0$, VAE $\rightarrow$ AE
