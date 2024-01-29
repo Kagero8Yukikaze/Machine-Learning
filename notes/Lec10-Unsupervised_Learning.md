@@ -80,7 +80,7 @@
   $U_k=(u_1,\dots,u_k)\in\mathbb{R}^{d\times k}$, project $X$ by $XU_k\in\mathbb{R}^{n\times k}$ ($k$ << $d$)
   $$
     \begin{align*}
-        \Sigma &= U^T\Lambda U\\
+        \Sigma &= U\Lambda U^T\\
         &=\begin{pmatrix*}
             u_1 & \dots & u_d
         \end{pmatrix*}

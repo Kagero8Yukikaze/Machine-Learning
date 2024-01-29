@@ -61,7 +61,7 @@
 
 1. Initialize sample weights $w_i^{(1)}=\bar{w}_i^{(1)}=\frac{1}{n}$, $\forall i\in\{1,\dots,n\}$
 2. For $t$ in $[1,\dots,T]$
-   1. use $D$ and $\{w_i^{(1)}\}$ to train $A$, get a model $f_t(x): \mathbb{R}^d\rightarrow\{-1,1\}$
+   1. use $D$ and $\{w_i^{(t)}\}$ to train $A$, get a model $f_t(x): \mathbb{R}^d\rightarrow\{-1,1\}$
    2. evaluate $f_t(x)$'s weighted classification error $e_t$ on $D$
     $$
         e_t=\sum_{i=1}^n w_i^{(t)}\cdot 1(f_t(x_i)\neq y_i)

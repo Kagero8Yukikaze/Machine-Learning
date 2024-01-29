@@ -6,3 +6,4 @@
 *.fls
 *.thm
 Lab/Lab-NN/flowers/
+**/__pycache__
